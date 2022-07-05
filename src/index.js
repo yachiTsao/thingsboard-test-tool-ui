@@ -14,9 +14,9 @@ $(document).ready(async function () {
         dataType: "json",
         success: function (info) {
             $("#device-list-data").html(
-                "<tr><td>" + info.deviceList[0].id + "</td><td>" + info.deviceList[0].name + "</td><td>" + info.deviceList[0].type + "</td></tr>" + info.deviceList[0].label + "</td></tr>" + info.deviceList[0].token + "</td></tr>" +
-                "<tr><td>" + info.deviceList[1].id + "</td><td>" + info.deviceList[1].name + "</td><td>" + info.deviceList[1].type + "</td></tr>" + info.deviceList[1].label + "</td></tr>" + info.deviceList[1].token + "</td></tr>" +
-                "<tr><td>" + info.deviceList[2].id + "</td><td>" + info.deviceList[2].name + "</td><td>" + info.deviceList[2].type + "</td></tr>" + info.deviceList[2].label + "</td></tr>" + info.deviceList[2].token + "</td></tr>"
+                "<tr><td>" + info.deviceList[0].name + "</td><td>" + info.deviceList[0].type + "</td></tr>" +
+                "<tr><td>" + info.deviceList[1].name + "</td><td>" + info.deviceList[1].type + "</td></tr>" +
+                "<tr><td>" + info.deviceList[2].name + "</td><td>" + info.deviceList[2].type + "</td></tr>"
             )
         },
         error: function (data) {
