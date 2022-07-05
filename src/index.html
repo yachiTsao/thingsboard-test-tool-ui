@@ -1,55 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-    <link rel="stylesheet" href="index.css">
+    <title>Test Tool</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <link href="./index.css" rel="stylesheet">
     <!-- <style>
             @import url("index.css");
     </style> -->
 
 </head>
+
 <body>
-    <!-- <h1>TEST</h1> -->
+    <header>Thingsboard test tool</header>
+    <main>
+        <div>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a id="devicelist" class="nav-link" aria-current="page" href="#">Device List</a>
+                </li>
+                <li class="nav-item">
+                    <a id="devicecreate" class="nav-link active" href="#">Device Create</a>
+                </li>
+                <li class="nav-item">
+                    <a id="nav3" class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a id="nav4" class="nav-link">Link</a>
+                </li>
+            </ul>
+        </div>
 
-    <!-- <div id="box1">裝置數量</div><br>
-    <div id="box2">裝置名稱</div><br>
-    <div id="box3">裝置類型</div><br>
-    <div><a>送出</a></div> -->
-    <table border=1>
-		<tr>
-			<td>id</td>
-			<td>name</td>
-            <td>type</td>
-		</tr>
-	<tbody id="row">
-	</tbody>
-
-</table>
-
+        <div id="listpage" class="subpage">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>Device name</td>
+                        <td>Device type</td>
+                    </tr>
+                </thead>
+                <tbody id="device-list-data">
+                </tbody>
+            </table>
+        </div>
+        <div id="createpage" class="subpage">
+            <h3>裝置資料</h3>
+            <div class="row g-2">
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">裝置數量</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <label for="floatingInput">裝置名稱</label>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="form-floating">
+                        <select class="form-select" id="floatingSelectGrid">
+                            <option selected>ggg</option>
+                            <option value="1">aaa</option>
+                            <option value="2">ccc</option>
+                            <option value="3">rrr</option>
+                        </select>
+                        <label for="floatingSelectGrid">裝置類型</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-outline-secondary">送出</button>
+            </div>
+        </div>
+        <div id="page3" class="subpage">3</div>
+        <div id="page4" class="subpage">4</div>
+    </main>
+    <footer></footer>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+<script src="./index.js"></script>
+
 </html>
-<script src="https://code.jquery.com/jquery-3.6.0.js" 
-integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
-crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function(){
-    //   $("#row").html("<tr><td>123</td><td>ABC</td></tr>");
-      $.ajax({
-        url: 'http://10.204.16.106:9316/TB/device/list',
-        type: "get",
-		dataType:"json",
-        success: function (info) {
-			$("#row").html(
-						"<tr><td>"+info.deviceList[0].id+"</td><td>"+info.deviceList[0].name+"</td><td>"+info.deviceList[0].type+"</td></tr>"+
-						"<tr><td>"+info.deviceList[1].id+"</td><td>"+info.deviceList[1].name+"</td><td>"+info.deviceList[1].type+"</td></tr>"+
-						"<tr><td>"+info.deviceList[2].id+"</td><td>"+info.deviceList[2].name+"</td><td>"+info.deviceList[2].type+"</td></tr>"
-			)
-        },
-        error: function (data) {
-            console.log("請求失敗");
-        }
-    });
-});</script>
