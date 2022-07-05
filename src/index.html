@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- <style>
+            @import url("index.css");
+    </style> -->
+
+</head>
+<body>
+    <!-- <h1>TEST</h1> -->
+
+    <!-- <div id="box1">裝置數量</div><br>
+    <div id="box2">裝置名稱</div><br>
+    <div id="box3">裝置類型</div><br>
+    <div><a>送出</a></div> -->
+    <table border=1>
+		<tr>
+			<td>id</td>
+			<td>name</td>
+            <td>type</td>
+		</tr>
+	<tbody id="row">
+	</tbody>
+
+</table>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.6.0.js" 
+integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+    //   $("#row").html("<tr><td>123</td><td>ABC</td></tr>");
+      $.ajax({
+        url: 'http://10.204.16.106:9316/TB/device/list',
+        type: "get",
+		dataType:"json",
+        success: function (info) {
+			$("#row").html(
+						"<tr><td>"+info.deviceList[0].id+"</td><td>"+info.deviceList[0].name+"</td><td>"+info.deviceList[0].type+"</td></tr>"+
+						"<tr><td>"+info.deviceList[1].id+"</td><td>"+info.deviceList[1].name+"</td><td>"+info.deviceList[1].type+"</td></tr>"+
+						"<tr><td>"+info.deviceList[2].id+"</td><td>"+info.deviceList[2].name+"</td><td>"+info.deviceList[2].type+"</td></tr>"
+			)
+        },
+        error: function (data) {
+            console.log("請求失敗");
+        }
+    });
+});</script>
