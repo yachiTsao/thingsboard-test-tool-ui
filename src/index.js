@@ -8,7 +8,7 @@ function hideAllSubpage(params) {
 
 $(document).ready(async function () {
     // API 非同步操作
-    $.ajax({
+    const data = await $.ajax({
         url: 'http://10.204.16.106:9316/TB/device/list',
         type: "get",
         dataType: "json",
@@ -22,9 +22,9 @@ $(document).ready(async function () {
         error: function (data) {
             console.log("請求失敗");
         }
-    }).then(function (data) {
-        console.log(data);
     });
+
+    console.log(data);
 
     // init subpage
     hideAllSubpage();
