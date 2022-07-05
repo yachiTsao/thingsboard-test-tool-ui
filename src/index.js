@@ -1,4 +1,4 @@
-// window.alert(5 + 6);
+window.alert(5 + 6);
 // $(document).ready(function(){
 // //   $("#row").html("<td>123</td>");
 //     $.ajax({
