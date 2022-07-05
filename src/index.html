@@ -24,10 +24,10 @@
         <div>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a id="devicelist" class="nav-link active" aria-current="page" href="#">Device List</a>
+                    <a id="devicelist" class="nav-link" aria-current="page" href="#">Device List</a>
                 </li>
                 <li class="nav-item">
-                    <a id="devicecreate" class="nav-link" href="#">Device Create</a>
+                    <a id="devicecreate" class="nav-link active" href="#">Device Create</a>
                 </li>
                 <li class="nav-item">
                     <a id="nav3" class="nav-link" href="#">Link</a>
@@ -40,7 +40,7 @@
 
         <div id="listpage" class="subpage">
             <table class="table table-striped">
-                <thead>               
+                <thead>
                     <tr>
                         <td>Device name</td>
                         <td>Device type</td>
@@ -50,7 +50,17 @@
                 </tbody>
             </table>
         </div>
-        <div id="createpage" class="subpage">2</div>
+        <div id="createpage" class="subpage">
+            <h3>裝置資料</h3>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput box1" placeholder="name@example.com">
+                <label for="floatingInput">裝置數量</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">裝置名稱</label>
+            </div>
+        </div>
         <div id="page3" class="subpage">3</div>
         <div id="page4" class="subpage">4</div>
     </main>

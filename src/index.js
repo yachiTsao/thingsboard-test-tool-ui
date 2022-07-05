@@ -28,19 +28,34 @@ $(document).ready(async function () {
 
     // init subpage
     hideAllSubpage();
-    $('#listpage').show();
+    $('#createpage').show();
 
     $('#devicelist').on('click', function (e) {
         hideAllSubpage();
-        removeAllLinkActiveClassName();
-        $('#nav1').addClass('active');
         $('#listpage').show();
+        removeAllLinkActiveClassName();
+        $('#devicelist').addClass('active');
     });
 
     $('#devicecreate').on('click', function (e) {
         hideAllSubpage();
+        $('#createpage').show();
         removeAllLinkActiveClassName();
         $('#devicecreate').addClass('active');
-        $('#createpage').show();
+
+    });
+
+    $('#nav3').on('click', function (e) {
+        hideAllSubpage();
+        $('#page3').show();
+        removeAllLinkActiveClassName();
+        $('#nav3').addClass('active');
+    });
+
+    $('#nav4').on('click', function (e) {
+        hideAllSubpage();
+        $('#page4').show();
+        removeAllLinkActiveClassName();
+        $('#nav4').addClass('active');
     });
 });

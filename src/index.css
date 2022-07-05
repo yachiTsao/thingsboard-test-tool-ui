@@ -32,19 +32,16 @@ footer {
     background-color: rgb(189, 232, 245);
     z-index: 10000;
 }
-
+h3{
+    margin: 2px 50px;
+}
 /* h1 {
     color: seagreen;
 } */
-/* #box1 {
+#box1 {
     width: 80px;
-    display: inline-block;
-    background-color: rgb(197, 226, 238);
-    border:1px solid rgb(11, 162, 221);
-    padding:10px 22px 10px 36px;
-    margin: 5px 50px;
 }
-#box2 {
+/*#box2 {
     width: 80px;
     display: inline-block;
     background-color: rgb(197, 226, 238);
