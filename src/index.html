@@ -52,34 +52,36 @@
         </div>
         <div id="createpage" class="subpage">
             <h3>裝置資料</h3>
-            <div class="row g-2">
-                <div class="col-md">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">裝置數量</label>
+            <form action="http://10.204.16.106:9316/TB/device/create" method="post">
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <label for="floatingInput" >裝置數量</label>
+                            <input type="number" class="form-control" id="floatingInput" name="devicecount">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating mb-3">
+                            <label for="floatingInput">裝置名稱</label>
+                            <input type="text" class="form-control" id="floatingInput" name="devicename">
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <label for="floatingSelectGrid">裝置類型</label>
+                            <select class="form-select" id="floatingSelectGrid" name="devicetype">
+                                <option selected>ggg</option>
+                                <option value="1">aaa</option>
+                                <option value="2">ccc</option>
+                                <option value="3">rrr</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">裝置名稱</label>
-                    </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-outline-secondary" name="summitok">送出</button>
                 </div>
-                <div class="col-md">
-                    <div class="form-floating">
-                        <select class="form-select" id="floatingSelectGrid">
-                            <option selected>ggg</option>
-                            <option value="1">aaa</option>
-                            <option value="2">ccc</option>
-                            <option value="3">rrr</option>
-                        </select>
-                        <label for="floatingSelectGrid">裝置類型</label>
-                    </div>
-                </div>
-            </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" class="btn btn-outline-secondary">送出</button>
-            </div>
+            </form>
         </div>
         <div id="page3" class="subpage">3</div>
         <div id="page4" class="subpage">4</div>
