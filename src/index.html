@@ -24,10 +24,10 @@
         <div>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a id="devicelist" class="nav-link active" aria-current="page" href="#">Thingsboard Device List</a>
+                    <a id="devicelist" class="nav-link active" aria-current="page" href="#">Device List</a>
                 </li>
                 <li class="nav-item">
-                    <a id="device" class="nav-link" href="#">Link</a>
+                    <a id="devicecreate" class="nav-link" href="#">Device Create</a>
                 </li>
                 <li class="nav-item">
                     <a id="nav3" class="nav-link" href="#">Link</a>
@@ -38,17 +38,19 @@
             </ul>
         </div>
 
-        <div id="page1" class="subpage">
+        <div id="listpage" class="subpage">
             <table class="table table-striped">
-                <tr>
-                    <td>name</td>
-                    <td>type</td>
-                </tr>
+                <thead>               
+                    <tr>
+                        <td>Device name</td>
+                        <td>Device type</td>
+                    </tr>
+                </thead>
                 <tbody id="device-list-data">
                 </tbody>
             </table>
         </div>
-        <div id="page2" class="subpage">2</div>
+        <div id="createpage" class="subpage">2</div>
         <div id="page3" class="subpage">3</div>
         <div id="page4" class="subpage">4</div>
     </main>

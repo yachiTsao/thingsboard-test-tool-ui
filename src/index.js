@@ -28,19 +28,19 @@ $(document).ready(async function () {
 
     // init subpage
     hideAllSubpage();
-    $('#page1').show();
+    $('#listpage').show();
 
-    $('#nav1').on('click', function (e) {
+    $('#devicelist').on('click', function (e) {
         hideAllSubpage();
         removeAllLinkActiveClassName();
         $('#nav1').addClass('active');
-        $('#page1').show();
+        $('#listpage').show();
     });
 
-    $('#nav2').on('click', function (e) {
+    $('#devicecreate').on('click', function (e) {
         hideAllSubpage();
         removeAllLinkActiveClassName();
-        $('#nav2').addClass('active');
-        $('#page2').show();
+        $('#devicecreate').addClass('active');
+        $('#createpage').show();
     });
 });
