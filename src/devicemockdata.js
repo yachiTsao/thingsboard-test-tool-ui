@@ -5,7 +5,7 @@ $("#create-device-form").submit(function (event) {
     console.log(datas);
 
     $.ajax({
-        url: "http://10.204.16.106:9316/TB/device/create",
+        url: "http://10.204.16.106:9316/TB/device/data/setting/create",
         method: "post",
         //上傳json格式需加入以下兩行
         dataType: "json",
@@ -23,9 +23,7 @@ $("#create-device-form").submit(function (event) {
 //將資料轉為json格式
 function parseData(data) {
     return JSON.stringify({
-        //將deviceCount轉成數字格式
-        "deviceCount": +(data[0].value),
-        "deviceName": data[1].value,
-        "deviceType": data[2].value
+        "name": data[0].value,
+        "data": data[1].value,
     });
 }

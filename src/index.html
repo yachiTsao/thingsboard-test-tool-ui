@@ -27,10 +27,10 @@
                     <a id="devicelist" class="nav-link" aria-current="page" href="#">Device List</a>
                 </li>
                 <li class="nav-item">
-                    <a id="devicecreate" class="nav-link active" href="#">Device Create</a>
+                    <a id="devicecreate" class="nav-link" href="#">Create Device</a>
                 </li>
                 <li class="nav-item">
-                    <a id="nav3" class="nav-link" href="#">Link</a>
+                    <a id="devicemockdata" class="nav-link active" href="#">Create Device Mock Datas</a>
                 </li>
                 <li class="nav-item">
                     <a id="nav4" class="nav-link">Link</a>
@@ -39,6 +39,7 @@
         </div>
 
         <div id="listpage" class="subpage">
+            <h3>裝置列表</h3>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -79,11 +80,37 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button id="send-create-device" type="submit" class="btn btn-outline-secondary" style="margin:10px;">送出</button>
+                    <button id="send-create-device" type="submit" class="btn btn-outline-secondary"
+                        style="margin:10px;">送出</button>
                 </div>
             </form>
         </div>
-        <div id="page3" class="subpage">3</div>
+        <div id="mockdatapage" class="subpage">
+            <h3>裝置類型資料</h3>
+            <form id="device-mockdata-form">
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <select class="form-select" id="floatingSelectGrid" name="devicetype">
+                                <option selected>ggg</option>
+                                <option value="aaa">aaa</option>
+                                <option value="ccc">ccc</option>
+                                <option value="rrr">rrr</option>
+                            </select>
+                            <label for="floatingSelectGrid">裝置類型</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">裝置詳細資訊</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button id="send-create-device" type="submit" class="btn btn-outline-secondary"
+                        style="margin:10px;">送出</button>
+                </div>
+            </form>
+        </div>
         <div id="page4" class="subpage">4</div>
     </main>
     <footer></footer>
@@ -92,5 +119,6 @@
     crossorigin="anonymous"></script>
 <script src="./index.js"></script>
 <script src="./link-api.js"></script>
+<script src="./devicemockdata.js"></script>
 
 </html>
