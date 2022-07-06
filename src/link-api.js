@@ -4,7 +4,6 @@ $("#create-device-form").submit(function (event) {
     const datas = $(this).serializeArray();
     console.log(datas);
 
-    //
     $.ajax({
         url: "http://10.204.16.106:9316/TB/device/create",
         method: "post",
