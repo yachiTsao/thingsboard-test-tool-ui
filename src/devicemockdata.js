@@ -24,9 +24,10 @@ function mockdatasubmit(event) {
 function parseData(dataset) {
     const mockdataname = dataset.get('name');
     const mockdata = dataset.get('data');
-    const Jsondata = isJson(mockdata);
-    // const Jsondata = jQuery.parseJSON(mockdata);
-    console.log(Jsondata);
+    const isJsondata = isJson(mockdata);
+    console.log(isJsondata);
+    const Jsondata = jQuery.parseJSON(mockdata);
+    console.log(isJsondata);
     return JSON.stringify({
         "name": mockdataname,
         "data": Jsondata,
