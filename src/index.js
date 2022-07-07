@@ -28,7 +28,7 @@ $(document).ready(async function () {
 
     // init subpage
     hideAllSubpage();
-    $('#createpage').show();
+    $('#mockdatapage').show();
 
     $('#devicelist').on('click', function (e) {
         hideAllSubpage();
@@ -45,11 +45,11 @@ $(document).ready(async function () {
 
     });
 
-    $('#nav3').on('click', function (e) {
+    $('#devicemockdata').on('click', function (e) {
         hideAllSubpage();
-        $('#page3').show();
+        $('#mockdatapage').show();
         removeAllLinkActiveClassName();
-        $('#nav3').addClass('active');
+        $('#devicemockdata').addClass('active');
     });
 
     $('#nav4').on('click', function (e) {
