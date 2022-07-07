@@ -1,3 +1,32 @@
+//測試輸入文字是否為json格式
+function parseJson(str) {
+    //先把非法的可能性排除
+    if (typeof str !== 'string') return;
+    try {
+        //將字串轉為Json格式
+        const parse = JSON.parse(str);
+        //array object 皆為 object 
+        if (typeof parse !== "object") return;
+        return parse;
+    } catch (e) {
+        alert("請輸入合法Json格式");
+        //回傳空值
+        return;
+    }
+}
+//將資料以json格式組合
+function parseData(dataset) {
+    const mockDataName = dataset.get('name');
+    const mockData = dataset.get('data');
+    const JsonData = parseJson(mockData);
+    if (JsonData) {
+        return JSON.stringify({
+            "name": mockDataName,
+            "data": JsonData,
+        });
+    }
+    return;
+}
 
 function mockDataSubmit(event) {
     //清除預設
@@ -24,34 +53,6 @@ function mockDataSubmit(event) {
         });
     }
 }
-//將資料以json格式組合
-function parseData(dataset) {
-    const mockDataName = dataset.get('name');
-    const mockData = dataset.get('data');
-    const JsonData = parseJson(mockData);
-    if (JsonData) {
-        return JSON.stringify({
-            "name": mockDataName,
-            "data": JsonData,
-        });
-    }
-    return;
-}
-//測試輸入文字是否為json格式
-function parseJson(str) {
-    //先把非法的可能性排除
-    if (typeof str !== 'string') return;
-    try {
-        //將字串轉為Json格式
-        const parse = JSON.parse(str);
-        //array object 皆為 object 
-        if (typeof parse !== "object") return;
-        return parse;
-    } catch (e) {
-        alert("請輸入合法Json格式");
-        //回傳空值
-        return;
-    }
-}
+
 const mockDataForm = document.querySelector('#device-mockData-form');
 mockDataForm.addEventListener('submit', mockDataSubmit);

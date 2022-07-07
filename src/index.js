@@ -28,34 +28,34 @@ $(document).ready(async function () {
 
     // init subpage
     hideAllSubpage();
-    $('#mockdatapage').show();
+    $('#actionPage').show();
 
-    $('#devicelist').on('click', function (e) {
+    $('#deviceList').on('click', function (e) {
         hideAllSubpage();
-        $('#listpage').show();
+        $('#listPage').show();
         removeAllLinkActiveClassName();
-        $('#devicelist').addClass('active');
+        $('#deviceList').addClass('active');
     });
 
-    $('#devicecreate').on('click', function (e) {
+    $('#deviceCreate').on('click', function (e) {
         hideAllSubpage();
-        $('#createpage').show();
+        $('#createPage').show();
         removeAllLinkActiveClassName();
-        $('#devicecreate').addClass('active');
+        $('#deviceCreate').addClass('active');
 
     });
 
-    $('#devicemockdata').on('click', function (e) {
+    $('#deviceMockData').on('click', function (e) {
         hideAllSubpage();
-        $('#mockdatapage').show();
+        $('#mockDataPage').show();
         removeAllLinkActiveClassName();
-        $('#devicemockdata').addClass('active');
+        $('#deviceMockData').addClass('active');
     });
 
-    $('#nav4').on('click', function (e) {
+    $('#deviceAction').on('click', function (e) {
         hideAllSubpage();
-        $('#page4').show();
+        $('#actionPage').show();
         removeAllLinkActiveClassName();
-        $('#nav4').addClass('active');
+        $('#deviceAction').addClass('active');
     });
 });

@@ -1,3 +1,12 @@
+//將資料轉為json格式
+function parseData(data) {
+    return JSON.stringify({
+        //將deviceCount轉成數字格式
+        "deviceCount": +(data[0].value),
+        "deviceName": data[1].value,
+        "deviceType": data[2].value
+    });
+}
 $("#create-device-form").submit(function (event) {
     //清除預設
     event.preventDefault();
@@ -21,12 +30,3 @@ $("#create-device-form").submit(function (event) {
     });
 
 });
-//將資料轉為json格式
-function parseData(data) {
-    return JSON.stringify({
-        //將deviceCount轉成數字格式
-        "deviceCount": +(data[0].value),
-        "deviceName": data[1].value,
-        "deviceType": data[2].value
-    });
-}
