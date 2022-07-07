@@ -24,12 +24,26 @@ function mockdatasubmit(event) {
 function parseData(dataset) {
     const mockdataname = dataset.get('name');
     const mockdata = dataset.get('data');
-    const Jsondata = jQuery.parseJSON(mockdata);
+    const Jsondata = isJson(mockdata);
+    // const Jsondata = jQuery.parseJSON(mockdata);
     console.log(Jsondata);
     return JSON.stringify({
         "name": mockdataname,
         "data": Jsondata,
     });
+}
+//測試輸入文字是否為json格式
+function isJson(str) {
+    if (typeof str == 'string') {
+        try {
+            if (typeof JSON.parse(str) == "object") {
+                return str;
+            }
+        } catch (e) {
+            alert("請輸入Json格式");
+            throw Error("This isn't json.");
+        }
+    }
 }
 const mockdataform = document.querySelector('#device-mockdata-form');
 mockdataform.addEventListener('submit', mockdatasubmit);
