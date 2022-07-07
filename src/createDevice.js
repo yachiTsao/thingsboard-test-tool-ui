@@ -27,6 +27,5 @@ $("#create-device-form").submit(function (event) {
         error: function (data) {
             alert("新增資料失敗");
         }
-    });
-
+    });   
 });

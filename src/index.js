@@ -13,11 +13,12 @@ $(document).ready(async function () {
         type: "get",
         dataType: "json",
         success: function (info) {
-            $("#device-list-data").html(
-                "<tr><td>" + info.deviceList[0].name + "</td><td>" + info.deviceList[0].type + "</td></tr>" +
-                "<tr><td>" + info.deviceList[1].name + "</td><td>" + info.deviceList[1].type + "</td></tr>" +
-                "<tr><td>" + info.deviceList[2].name + "</td><td>" + info.deviceList[2].type + "</td></tr>"
-            )
+            var tablePage = document.querySelector('#device-list-data');
+            var table = '';
+            for (i = 0; i < info.deviceList.length; i++) {
+                table += "<tr><td>" + info.deviceList[i].name + "</td><td>" + info.deviceList[i].type + "</td></tr>";
+            }
+            tablePage.innerHTML = table;
         },
         error: function (data) {
             console.log("請求失敗");

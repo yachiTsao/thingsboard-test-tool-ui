@@ -15,7 +15,7 @@ function parseJson(str) {
     }
 }
 //將資料以json格式組合
-function parseData(dataset) {
+function parseMockData(dataset) {
     const mockDataName = dataset.get('name');
     const mockData = dataset.get('data');
     const JsonData = parseJson(mockData);
@@ -34,7 +34,7 @@ function mockDataSubmit(event) {
     //抓form裡面的資料
     const data = new FormData(event.target);
     //若觸發一次parseData()就會跑一次alert 以此類堆
-    const newData = parseData(data);
+    const newData = parseMockData(data);
 
     if (newData) {
         $.ajax({
