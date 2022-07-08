@@ -113,18 +113,28 @@
         </div>
         <div id="actionPage" class="subpage">
             <h3>裝置行為</h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <td>裝置名稱</td>
-                        <td>裝置類型</td>
-                        <td>裝置行為</td>
-                        <td>裝置上傳頻率</td>
-                    </tr>
-                </thead>
-                <tbody id="device-action-data">
-                </tbody>
-            </table>
+                <form id="device-actionData-form">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>裝置名稱</td>
+                                <td>裝置類型</td>
+                                <td>裝置行為</td>
+                                <td>裝置上傳頻率</td>
+                            </tr>
+                        </thead>
+                        <tbody id="device-action-data"></tbody>
+                        <div class="d-md-flex justify-content-md-end">
+                            <button id="send-deviceActionData" type="submit" class="btn btn-outline-secondary"
+                                style="margin:10px;">送出
+                            </button>
+                        </div>
+                    </table>
+                </form>
+                <div id="results">
+                    <pre></pre>
+                </div>
+            <!-- </div> -->
         </div>
     </main>
     <footer></footer>
