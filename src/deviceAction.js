@@ -7,33 +7,17 @@
 //     console.log("sendData: " + isChecked); //true or false
 // };
 
-// function parseJson(str) {
-//     //先把非法的可能性排除
-//     if (typeof str !== 'string') return;
-//     try {
-//         //將字串轉為Json格式
-//         const parse = JSON.parse(str);
-//         //array object 皆為 object 
-//         if (typeof parse !== "object") return;
-//         return parse;
-//     } catch (e) {
-//         alert("請輸入合法Json格式");
-//         //回傳空值
-//         return;
-//     }
-// }
-
 function parseActionData(dataset) {
     const dataName = dataset.get('name');
     const dataType = dataset.get('type');
-    // const dataAction = dataset.get(['actions']);
+    const dataAction = dataset.getAll('actions');
     const dataSecond = dataset.get('second');
     // const jsonData = parseJson(actionData);
     if (dataSecond) {
         return JSON.stringify({
             "name": dataName,
             "data": dataType,
-            // "action": dataAction,
+            "action": dataAction,
             "second": dataSecond
         });
     }
@@ -47,8 +31,7 @@ function actionDataFormSubmit(event) {
   console.log(actionData);
   const newData = parseActionData(actionData);
   console.log(newData);
-  const action  = actionData.getAll('actions');
-  console.log(action);
+
 
 //   const results = document.querySelector('.results pre');
 //   results.innerText = JSON.stringify(formJSON, null, 2);
