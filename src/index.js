@@ -25,7 +25,7 @@ $(document).ready(async function () {
         }
     });
 
-    console.log(data);
+    // console.log(data);
 
     // init subpage
     hideAllSubpage();
