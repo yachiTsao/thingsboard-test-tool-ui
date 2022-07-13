@@ -40,49 +40,84 @@
 // const actionDataForm = document.querySelector('#device-actionData-form');
 // actionDataForm.addEventListener('submit', actionDataFormSubmit);
 
+let isSendData = false;
+let isSubscribeRPC = false;
 // 搜尋action 
-function findArrayItem(arr, targe) {
-    if (Array.isArray(arr)) {
-        arr.find();
+function findArrayItem(arr) {
+    //
+    if (Array.isArray(arr) && arr.length > 0) {
+        const res1 = arr.find(element => element === ('subscribeRPC'));
+        // const res = arr.find(element => element === ('sendData'));
+        console.log(res1);
+        // if (res === 'sendData') {
+        //     // console.log('true');
+        //     return true;
+        // }
+        if (res1 === ('subscribeRPC')){
+            return true;
+        }
+        return false;
     }
-    return;
+    return false;
 }
 
 // sendData, subscribeRPC 
 //create table and build items
-function tableItemBuilder(device, index) {
-    return `<tr><td> ${device.name}  </td><td> ${device.type}</td>
-    <td><input name=actions id=subscribeRPC-${index} type=checkbox value='false' class=form-check-input> ${device.action} subscribeRPC </input><br>
-    <input name=actions id=sendData-${index} type=checkbox value='true' class=form-check-input> ${device.action} sendData </input></td>
+function tableItemBuilder(device, index) { 
+    console.log(device);
+    isSubscribeRPC = findArrayItem(device.action);
+    console.log(isSubscribeRPC);
+    return `<tr><td> ${device.name} </td><td> ${device.type} </td>
+    <td><input name=actions id=subscribeRPC-${index} type=checkbox class=form-check-input checked=${isSubscribeRPC}> SubscribeRPC </input><br>
+    <input name=actions id=sendData-${index} type=checkbox class=form-check-input checked=${isSendData}> SendData </input></td>
     <td><input name=second id=second-${index} class='form-control second' type=number value= ${device.sendDataFrequency} ></input></td></tr>`
 }
+
 
 //更新Table
 function updateTable(deviceList) {
     const tablePage = document.querySelector('#device-action-data'); //js寫法
-    console.log(deviceList.length);
     let table = '';
-    for (i = 0; i < deviceList.length; i++) {
+    for (let i = 0; i < deviceList.length; i++) {
         table += tableItemBuilder(deviceList[i], i);
     }
     console.log(deviceList);
     // $('#device-action-data').html(table);  //jQuery寫法
     tablePage.innerHTML = table; //js寫法
 
-    for (i = 0; i < deviceList.length; i++) {
-        $(`#sendData-${i}`).on('click', (e) => {
-            //將點選結果覆蓋並顯示
-            e.target.value = e.target.checked;
-            console.log(e.target.checked, e.target.value);
-        });
-        $(`#subscribeRPC-${i}`).on('click', (e) => {
-            e.target.value = e.target.checked;
-            console.log(e.target.checked, e.target.value);
-        });
-        $(`#second-${i}`).on('change', (e) => {
-            console.log(e.target.value);
-        });
-    }
+    // const actionArray = [];
+
+    // for (let i = 0; i < deviceList.length; i++) {
+
+    //     actionArray[i] = [];
+    //     $(`#sendData-${i}`).on('click', (e) => {
+    //         //將點選結果覆蓋並顯示
+    //         // beforeAction = e.target.value
+    //         // e.target.value = e.target.checked;
+    //         // afterAction = e.target.value;
+    //         // console.log(beforeAction, afterAction);
+    //         // if (afterAction !== beforeAction){
+    //         //     console.log("change");
+    //         //     document.getElementById(`sendData-${i}`).checked = afterAction;
+    //         // }
+    //         e.target.value = e.target.checked;
+    //         console.log(e.target.checked, e.target.value);
+    //         actionArray[i][0] = e.target.value;
+    //         console.log(actionArray);
+    //     });
+    //     $(`#subscribeRPC-${i}`).on('click', (e) => {
+    //         e.target.value = e.target.checked;
+    //         console.log(e.target.checked, e.target.value);
+    //         actionArray[i][1] = e.target.value;
+    //         console.log(actionArray);
+    //     });
+    //     $(`#second-${i}`).on('change', (e) => {
+    //         console.log(e.target.value);
+    //         // document.getElementById(`second-${i}`).value;
+    //         actionArray[i][2] = e.target.value;
+    //         console.log(actionArray);
+    //     });
+    // }
 }
 //連接API
 async function fetchDeviceActionListAndUpdateTable() {
@@ -92,7 +127,6 @@ async function fetchDeviceActionListAndUpdateTable() {
         dataType: "json",
         success: function (info) {
             // console.log(info);
-
         },
         error: function (data) {
             console.log("請求失敗");
