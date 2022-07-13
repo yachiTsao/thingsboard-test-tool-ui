@@ -42,3 +42,22 @@ function linkCreateDeviceandParseJson(data){
         }
     });   
 }
+
+function linkDeviceList(){
+    $.ajax({
+        url: 'http://10.204.16.106:9316/TB/device/list',
+        type: "get",
+        dataType: "json",
+        success: function (info) {
+            var tablePage = document.querySelector('#device-list-data');
+            var table = '';
+            for (i = 0; i < info.deviceList.length; i++) {
+                table += "<tr><td>" + info.deviceList[i].name + "</td><td>" + info.deviceList[i].type + "</td></tr>";
+            }
+            tablePage.innerHTML = table;
+        },
+        error: function (data) {
+            console.log("請求失敗");
+        }
+    });
+}

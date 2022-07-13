@@ -1,7 +1,8 @@
 function initGlobalVariable() {
     window.global = {
         deviceList: [],
-        isCreateDevice: false
+        isCreateDevice: false,
+        // actionArray: [[]]
     };
 }
 
