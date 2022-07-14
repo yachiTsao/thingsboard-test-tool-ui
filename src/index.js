@@ -42,11 +42,4 @@ $(document).ready(async function () {
         removeAllLinkActiveClassName();
         $('#deviceAction').addClass('active');
     });
-
-    $('#TestDevice').on('click', function (e) {
-        hideAllSubpage();
-        $('#TestDevicePage').show();
-        removeAllLinkActiveClassName();
-        $('#TestDevice').addClass('active');
-    });
 });
