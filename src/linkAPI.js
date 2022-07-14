@@ -17,7 +17,8 @@ function linkCreateMockData(data){
 
 function linkCreateDeviceandParseJson(data){
     //將資料轉為json格式
-    function parseData(data) {
+    function parseJsonString(data) {
+        //將物件傳成字串
         return JSON.stringify({
             //將deviceCount轉成數字格式
             "deviceCount": +(data[0].value),
@@ -32,7 +33,7 @@ function linkCreateDeviceandParseJson(data){
         //上傳json格式需加入以下兩行
         dataType: "json",
         contentType: "application/json",
-        data: parseData(data),
+        data: parseJsonString(data),
         success: function (res) {
             alert("已成功新增資料");
             setGlobalVariable('deviceList', res)
@@ -58,6 +59,27 @@ function linkDeviceList(){
         },
         error: function (data) {
             console.log("請求失敗");
+        }
+    });
+}
+
+function updateActionDeviceList(updateList){
+    function parseJsonString(updateList) {
+        return JSON.stringify({
+            "deviceList": updateList
+        });
+    }
+    $.ajax({
+        url: "http://10.204.16.106:9316/TB/device/action/update",
+        method: "post",
+        dataType: "json",
+        contentType: "application/json",
+        data: parseJsonString(updateList),
+        success: function (res) {
+            alert("已成功新增資料");
+        },
+        error: function (data) {
+            alert("新增資料失敗");
         }
     });
 }

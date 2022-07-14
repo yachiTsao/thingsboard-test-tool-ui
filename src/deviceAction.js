@@ -1,77 +1,23 @@
-// function updateRPC() {
-//     var isChecked = $(this).is(":checked");
-//     console.log("subscribeRPC: " + isChecked); //true or false
-// };
-// function updateSendData() {
-//     var isChecked = $(this).is(":checked");
-//     console.log("sendData: " + isChecked); //true or false
-// };
-
-// function parseActionData(dataset) {
-//     const dataName = dataset.get('name');
-//     const dataType = dataset.get('type');
-//     const dataAction = dataset.getAll('actions');
-//     const dataSecond = dataset.get('second');
-//     // const jsonData = parseJson(actionData);
-//     if (dataSecond) {
-//         return JSON.stringify({
-//             "name": dataName,
-//             "type": dataType,
-//             "action": dataAction,
-//             "second": dataSecond
-//         });
-//     }
-//     return;
-// }
-
-// function actionDataFormSubmit(event) {
-//     event.preventDefault();
-//     const inputData = $(event.target).serializeArray();
-//     console.log(inputData);
-//     const actionData = new FormData(event.target);
-//     console.log(event.target.type);
-//     console.log(actionData);
-//     const newData = parseActionData(actionData);
-//     console.log(newData);
-//     const results = document.querySelector('.results pre');
-//     results.innerText = JSON.stringify(formJSON, null, 2);
-// }
-
-// const actionDataForm = document.querySelector('#device-actionData-form');
-// actionDataForm.addEventListener('submit', actionDataFormSubmit);
-
-
-// console.log(isSubscribeRPC[1]);//undefined
-// 搜尋action 
+// 搜尋action 從陣列搜尋
 function findArrayItem(arr, target) {
+    // early return 先將不是陣列或陣列長度等於0的剔除
     if (!Array.isArray(arr) || arr.length === 0) return false;
-    const res1 = arr.find(element => element === target);
-    if (!res1) return false;
+    const result = arr.find(element => element === target);
+    if (!result) return false;
     return true;
-    // return arr.find(element => element === target) ? true : false; 
+    // 更簡化的寫法：return arr.find(element => element === target) ? true : false; (三元運算子 Ternary Operator)
 }
 
 // sendData, subscribeRPC 
-//create table and build items
+// create table and build items
 function tableItemBuilder(device, index) {
+    //判斷陣列內是否有行為(boolean)
     const isSendData = findArrayItem(device.action, 'sendData');
     const isSubscribeRPC = findArrayItem(device.action, 'subscribeRPC');
-    // console.log(device.sendDataFrequency);
     return `<tr><td> ${device.name} </td><td> ${device.type} </td>
     <td><input name=actions id=subscribeRPC-${index} type=checkbox class=form-check-input ${isSubscribeRPC ? 'checked' : ''}> SubscribeRPC </input><br>
     <input name=actions id=sendData-${index} type=checkbox class=form-check-input ${isSendData ? 'checked' : ''}> SendData </input></td>
     <td><input name=second id=second-${index} class='form-control second' type=number value= ${device.sendDataFrequency} ></input></td></tr>`
-}
-
-function checkboxValue(e,i,target){
-    e.target.value = e.target.checked;
-    console.log(e.target.checked, e.target.value);
-
-    if (e.target.checked === true) { //如果是true就加入(原本沒有)
-        deviceList[i].action.push(target);
-    } else { //不是sendData的留下(原本有)
-        deviceList[i].action = deviceList[i].action.filter(element => element !== target);
-    }
 }
 
 //更新Table
@@ -80,51 +26,59 @@ function updateTable(deviceList) {
     let table = '';
     for (let i = 0; i < deviceList.length; i++) {
         table += tableItemBuilder(deviceList[i], i);
-        console.log(deviceList[i].action);
     }
-    // console.log(deviceList.action);
+    //將表格填入網頁
     // $('#device-action-data').html(table);  //jQuery寫法
     tablePage.innerHTML = table; //js寫法
 
-    
-
     for (let i = 0; i < deviceList.length; i++) {
         // const sendDataCallback = checkboxValue(e,i,'');
-        function sendDataCallback (e) {
+        // callback function 宣告 需透過另一個函式呼叫執行
+        function sendDataCallback(e) {
+            // 變更為正確狀態
             e.target.value = e.target.checked;
             console.log(e.target.checked, e.target.value);
-            
-            if (e.target.checked === true) {
+
+            if (e.target.checked === true) { //如果是true就加入(原本沒有)
                 deviceList[i].action.push('sendData');
-            } else {//不是subscribeRPC(原本有)
+            } else {//不是sendData的留下(原本有 取消點選)
                 deviceList[i].action = deviceList[i].action.filter(element => element !== 'sendData');
             }
-            console.log(deviceList);
+            // console.log(deviceList);
         }
         $(`#sendData-${i}`).on('click', sendDataCallback); //sendDataCallback(e) = checkboxValue(e,i,'')(e)
-        console.log(deviceList);
+        // console.log(deviceList);
 
-        function subscribeRPCCallback (e) {
+        function subscribeRPCCallback(e) {
             e.target.value = e.target.checked;
             console.log(e.target.checked, e.target.value);
-            
+
             if (e.target.checked === true) {
                 deviceList[i].action.push('subscribeRPC');
-            } else {//不是subscribeRPC(原本有)
+            } else {
                 deviceList[i].action = deviceList[i].action.filter(element => element !== 'subscribeRPC');
             }
-            console.log(deviceList);
+            // console.log(deviceList);
         }
         $(`#subscribeRPC-${i}`).on('click', subscribeRPCCallback); // subscribeRPCCallback(event)
 
         $(`#second-${i}`).on('change', (e) => {
-            // console.log(e.target.value);
             deviceList[i].sendDataFrequency = parseInt(e.target.value);
-            console.log(deviceList);
+            // console.log(deviceList);
         });
-
     }
+    console.log(deviceList);
+    // updateActionDeviceList(deviceList);
 }
+
+// function deviceActionSubmit(event) {
+//     event.preventDefault();
+//     const list = new FormData(event.target);
+//     console.log(list);
+//     // if(list)updateActionDeviceList(list);
+// }
+
+
 //連接API
 async function fetchDeviceActionListAndUpdateTable() {
     const deviceActionList = await $.ajax({
@@ -132,7 +86,7 @@ async function fetchDeviceActionListAndUpdateTable() {
         type: "get",
         dataType: "json",
         success: function (info) {
-            // console.log(info);
+            console.log(info);
         },
         error: function (data) {
             console.log("請求失敗");
