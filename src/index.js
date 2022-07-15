@@ -11,7 +11,7 @@ $(document).ready(async function () {
 
     // init subpage
     hideAllSubpage();
-    $('#actionPage').show();
+    $('#testDevicePage').show();
 
     $('#deviceList').on('click', function (e) {
         hideAllSubpage();
@@ -41,5 +41,13 @@ $(document).ready(async function () {
         $('#actionPage').show();
         removeAllLinkActiveClassName();
         $('#deviceAction').addClass('active');
+        // fetchDeviceActionListAndUpdateTable();
+    });
+
+    $('#TestDevice').on('click', function (e) {
+        hideAllSubpage();
+        $('#testDevicePage').show();
+        removeAllLinkActiveClassName();
+        $('#TestDevice').addClass('active');
     });
 });
