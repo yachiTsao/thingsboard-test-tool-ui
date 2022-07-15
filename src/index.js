@@ -7,55 +7,39 @@ function hideAllSubpage(params) {
 }
 
 $(document).ready(async function () {
-    // API 非同步操作
-    const data = await $.ajax({
-        url: 'http://10.204.16.106:9316/TB/device/list',
-        type: "get",
-        dataType: "json",
-        success: function (info) {
-            $("#device-list-data").html(
-                "<tr><td>" + info.deviceList[0].name + "</td><td>" + info.deviceList[0].type + "</td></tr>" +
-                "<tr><td>" + info.deviceList[1].name + "</td><td>" + info.deviceList[1].type + "</td></tr>" +
-                "<tr><td>" + info.deviceList[2].name + "</td><td>" + info.deviceList[2].type + "</td></tr>"
-            )
-        },
-        error: function (data) {
-            console.log("請求失敗");
-        }
-    });
-
-    console.log(data);
+    // API 非同步操作 await
 
     // init subpage
     hideAllSubpage();
-    $('#mockdatapage').show();
+    $('#actionPage').show();
 
-    $('#devicelist').on('click', function (e) {
+    $('#deviceList').on('click', function (e) {
         hideAllSubpage();
-        $('#listpage').show();
+        $('#listPage').show();
         removeAllLinkActiveClassName();
-        $('#devicelist').addClass('active');
+        $('#deviceList').addClass('active');
+        linkDeviceList();
     });
 
-    $('#devicecreate').on('click', function (e) {
+    $('#deviceCreate').on('click', function (e) {
         hideAllSubpage();
-        $('#createpage').show();
+        $('#createPage').show();
         removeAllLinkActiveClassName();
-        $('#devicecreate').addClass('active');
+        $('#deviceCreate').addClass('active');
 
     });
 
-    $('#devicemockdata').on('click', function (e) {
+    $('#deviceMockData').on('click', function (e) {
         hideAllSubpage();
-        $('#mockdatapage').show();
+        $('#mockDataPage').show();
         removeAllLinkActiveClassName();
-        $('#devicemockdata').addClass('active');
+        $('#deviceMockData').addClass('active');
     });
 
-    $('#nav4').on('click', function (e) {
+    $('#deviceAction').on('click', function (e) {
         hideAllSubpage();
-        $('#page4').show();
+        $('#actionPage').show();
         removeAllLinkActiveClassName();
-        $('#nav4').addClass('active');
+        $('#deviceAction').addClass('active');
     });
 });

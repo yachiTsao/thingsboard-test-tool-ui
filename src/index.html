@@ -24,21 +24,21 @@
         <div>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a id="devicelist" class="nav-link" aria-current="page" href="#">Device List</a>
+                    <a id="deviceCreate" class="nav-link" href="#">Create Device</a>
                 </li>
                 <li class="nav-item">
-                    <a id="devicecreate" class="nav-link" href="#">Create Device</a>
+                    <a id="deviceList" class="nav-link" aria-current="page" href="#">Device List</a>
                 </li>
                 <li class="nav-item">
-                    <a id="devicemockdata" class="nav-link active" href="#">Create Device Mock Datas</a>
+                    <a id="deviceMockData" class="nav-link" href="#">Create Device Mock Data</a>
                 </li>
                 <li class="nav-item">
-                    <a id="nav4" class="nav-link">Link</a>
+                    <a id="deviceAction" class="nav-link active">Device Action</a>
                 </li>
             </ul>
         </div>
 
-        <div id="listpage" class="subpage">
+        <div id="listPage" class="subpage">
             <h3>裝置列表</h3>
             <table class="table table-striped">
                 <thead>
@@ -51,7 +51,7 @@
                 </tbody>
             </table>
         </div>
-        <div id="createpage" class="subpage">
+        <div id="createPage" class="subpage">
             <h3>裝置資料</h3>
             <form id="create-device-form">
                 <div class="row g-2">
@@ -85,7 +85,7 @@
                 </div>
             </form>
         </div>
-        <div id="mockdatapage" class="subpage">
+        <div id="mockDataPage" class="subpage">
             <h3>裝置類型資料</h3>
             <form id="device-mockData-form">
                 <div class="row g-2">
@@ -111,14 +111,35 @@
                 </div>
             </form>
         </div>
-        <div id="page4" class="subpage">4</div>
+        <div id="actionPage" class="subpage">
+            <h3>裝置行為</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>裝置名稱</td>
+                            <td>裝置類型</td>
+                            <td>裝置行為</td>
+                            <td>裝置上傳頻率</td>
+                        </tr>
+                    </thead>
+                    <tbody id="device-action-data"></tbody>
+                    <div class="d-md-flex justify-content-md-end">
+                        <button id="send-deviceActionData" type="button" class="btn btn-outline-secondary"
+                            style="margin:10px;">送出
+                        </button>
+                    </div>
+                </table>
+        </div>
     </main>
     <footer></footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
 <script src="./index.js"></script>
-<script src="./link-api.js"></script>
-<script src="./devicemockdata.js"></script>
-<script language=javascript></script>
+<script src="./globalVariableHandler.js"></script>
+<script src="./linkAPI.js"></script>
+<script src="./createDevice.js"></script>
+<script src="./deviceMockData.js"></script>
+<script src="./deviceAction.js"></script>
+
 </html>
