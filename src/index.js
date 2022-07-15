@@ -41,7 +41,7 @@ $(document).ready(async function () {
         $('#actionPage').show();
         removeAllLinkActiveClassName();
         $('#deviceAction').addClass('active');
-        // fetchDeviceActionListAndUpdateTable();
+        fetchDeviceActionListAndUpdateTable();
     });
 
     $('#TestDevice').on('click', function (e) {

@@ -80,3 +80,4 @@ async function fetchDeviceActionListAndUpdateTable() {
     });
     updateTable(deviceActionList.devices);
 }
+// fetchDeviceActionListAndUpdateTable() 

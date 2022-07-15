@@ -15,22 +15,25 @@ function buildItem(device) {
     <td> ${device.testTime} </td><td> ${device.frequency} s </td><td> ${canLoadData} </td><td> ${device.testTime} </td></tr>`
 }
 
-function buildTableandFourBottomFunction(deviceList) {
+function buildTableandFourButtonFunction(deviceList) {
     const tablePage = document.getElementById('test-device-data');
     let table = '';
-    const ArrayofId = [];
+    let ArrayofId = [];
+    ArrayofId = [];
+    console.log(ArrayofId);
     for (let i = 0; i < deviceList.length; i++) {
         table += buildItem(deviceList[i]);
         ArrayofId.push(deviceList[i].id);
     }
     tablePage.innerHTML = table;
-    console.log(ArrayofId);
+    // console.log(ArrayofId);
 
     function AllDevicesJsonParse() {
         return JSON.stringify({
             "deviceList": ArrayofId
         });
     }
+
     console.log(AllDevicesJsonParse(ArrayofId));
     function deleteAllDevices(e) {
         $.ajax({
@@ -98,7 +101,7 @@ function buildTableandFourBottomFunction(deviceList) {
     }
     $(`#stop-allUploadData`).on('click', stopAllUploadData);
 
-    console.log(deviceList);
+    // console.log(deviceList);
     function downloadResult() {
         //藉型別陣列建構的 blob 來建立 URL
         let fileName = "fileName.csv";
@@ -131,7 +134,7 @@ async function loadDeviceList() {
         type: "get",
         dataType: "json",
         success: function (info) {
-            buildTableandFourBottomFunction(info.devices);
+            buildTableandFourButtonFunction(info.devices);
         },
         error: function (data) {
             console.log("請求失敗");
