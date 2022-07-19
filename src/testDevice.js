@@ -7,7 +7,6 @@ function findArrayItem(arr, target) {
 function buildItem(device) {
     let canLoadData = "No";
     const isSendData = findArrayItem(device.action, 'sendData');
-    // const isSubscribeRPC = findArrayItem(device.action, 'subscribeRPC');
     if (!device.action[0]) device.action[0] = ""; //sendData
     if (!device.action[1]) device.action[1] = ""; //subscribeRPC
     if (isSendData === true) canLoadData = "Yes";
@@ -118,66 +117,71 @@ function buildTableandFourButtonFunction(deviceList) {
     $(`#stop-allUploadData`).on('click', stopAllUploadData);
 
     // console.log(deviceList);
+    function buildData(data) {
+        //title陣列
+        const arrayData = [];
+        // const arrayTitle = Object.keys(data[0]);
+        // 利用mapping抓對照的值
+        const CSVTitleMapping = getGlobalVariable('CSVTitleMapping'); 
+        // 連接API的key
+        const CSVTitleArray = Object.keys(CSVTitleMapping) || []; 
 
+        if (CSVTitleArray.length === 0) return;
+        arrayData.push(Object.values(CSVTitleMapping)); 
+        //key對照表的value值(要在CSV呈現的)
+
+        for (let i = 0; i < data.length; i++) {
+            const deviceItems = [];
+            for (let j = 0; j < arrayData.length; j++) {
+                let item = [];
+                //利用key抓每個裝置的值
+                CSVTitleArray.forEach((key) => { 
+                    if (key === 'action') {
+                        item.push(data[j][key].join(' & '));
+                    } else {
+                        item.push(data[j][key] || '');
+                    }
+                });
+                deviceItems.push(item);
+            }
+            arrayData.push(deviceItems);
+        }
+        finArray = arrayData[data.length]
+        console.log(finArray);
+        let csvData = '';
+        csvData += arrayData[0]+ '\n';
+        for (let k = 0; k < finArray.length; k++) {
+            let dataString = finArray[k].join(',') + '\n';
+            csvData += dataString;
+        }
+        console.log(csvData);
+        return csvData;
+    }
+    function downloadCSV(csvContent) {
+        // 下載的檔案名稱
+        let fileName = '下載資料_' + (new Date()).getTime() + '.csv';
+
+        // 建立一個 a，並點擊它
+        let link = document.createElement('a');
+        link.setAttribute('href', 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURI(csvContent));
+        link.setAttribute('download', fileName);
+        link.click();
+        alert('資料已下載');
+    }
     function downloadResult() {
-        const buildData = data => {
-            return new Promise((resolve, reject) => {
-                // 最後所有的資料
-                let arrayData = [];
-                try {
-                    // 取 data 的第一個 Object 的 key 當表頭
-                    let arrayTitle = Object.keys(data[0]);
-                    arrayData.push(arrayTitle);
-
-                    // 取出每一個 Object 裡的 value，push 進新的 Array 裡
-                    Array.prototype.forEach.call(data, d => {
-                        let items = [];
-                        Array.prototype.forEach.call(arrayTitle, title => {
-                            let item = d[title] || '0';
-                            console.log(title, item);
-                            // items.push(item);
-                            if (title === 'action') {
-                                items.push(item.join(' & '));
-                            } else {
-                                items.push(item);
-                            }
-                        });
-                        arrayData.push(items)
-                    });
-                    
-                } catch (err) {
-                    reject(err)
-                }
-                console.log(arrayData);
-                resolve(arrayData);
-            })
-        }
-        // 轉成 CSV 並下載
-        const downloadCSV = data => {
-            let csvContent = '';
-            Array.prototype.forEach.call(data, d => {
-                let dataString = d.join(',') + '\n';
-                console.log(dataString, 'dataString');
-                csvContent += dataString;
-            })
-            // console.log(csvContent);
-            // 下載的檔案名稱
-            let fileName = 'testDevice' + (new Date()).getTime() + '.csv';
-
-            // 建立一個 a，並點擊它
-            let link = document.createElement('a');
-            link.setAttribute('href', 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURI(csvContent));
-            link.setAttribute('download', fileName);
-            link.click();
-        }
         $.ajax({
             url: 'http://10.204.16.106:9316/TB/device/action/list',
             type: "get",
             dataType: "json",
             success: function (info) {
                 let data = info.devices;
-                buildData(data)
-                    .then(data => downloadCSV(data));
+                console.log(data);
+                const result = buildData(data);
+                if (!result) {
+                    alert("資料轉換失敗");
+                    return;
+                } 
+                downloadCSV(result);
             },
             error: function (data) {
                 console.log("請求失敗");
@@ -185,7 +189,6 @@ function buildTableandFourButtonFunction(deviceList) {
         });
     }
     $(`#download-testResult`).on('click', downloadResult);
-
 }
 
 async function loadDeviceList() {
