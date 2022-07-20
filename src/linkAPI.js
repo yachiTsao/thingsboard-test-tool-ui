@@ -50,8 +50,8 @@ function linkDeviceList(){
         type: "get",
         dataType: "json",
         success: function (info) {
-            var tablePage = document.querySelector('#device-list-data');
-            var table = '';
+            const tablePage = document.querySelector('#device-list-data');
+            let table = '';
             for (i = 0; i < info.deviceList.length; i++) {
                 table += "<tr><td>" + info.deviceList[i].name + "</td><td>" + info.deviceList[i].type + "</td></tr>";
             }
@@ -82,4 +82,4 @@ function updateActionDeviceList(updateList){
             alert("新增資料失敗");
         }
     });
-}
+} 
