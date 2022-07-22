@@ -1,6 +1,7 @@
 const sendActionData = document.getElementById('send-deviceActionData');
 // 搜尋action 從陣列搜尋
 function findArrayItem(arr, target) {
+    // console.log("1");
     if (!Array.isArray(arr) || arr.length === 0) return false;
     const result = arr.find(element => element === target);
     if (!result) return false;
@@ -12,6 +13,7 @@ function tableItemBuilder(device, index) {
     //判斷陣列內是否有行為
     const isSendData = findArrayItem(device.action, 'sendData');
     const isSubscribeRPC = findArrayItem(device.action, 'subscribeRPC');
+    // console.log(isSendData);
     return `<tr><td> ${device.name} </td><td> ${device.type} </td>
     <td><input name=actions id=subscribeRPC-${index} type=checkbox class=form-check-input ${isSubscribeRPC ? 'checked' : ''}> SubscribeRPC </input><br>
     <input name=actions id=sendData-${index} type=checkbox class=form-check-input ${isSendData ? 'checked' : ''}> SendData </input></td>
@@ -22,6 +24,7 @@ function tableItemBuilder(device, index) {
 function updateTable(deviceList) {
     const tablePage = document.querySelector('#device-action-data');
     let table = '';
+    console.log(deviceList);
     for (let i = 0; i < deviceList.length; i++) {
         table += tableItemBuilder(deviceList[i], i);
     }
@@ -82,4 +85,4 @@ async function fetchDeviceActionListAndUpdateTable() {
     // console.log(deviceActionList.devices);
     updateTable(deviceActionList.devices);
 }
-fetchDeviceActionListAndUpdateTable() 
+// fetchDeviceActionListAndUpdateTable() 
