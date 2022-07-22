@@ -62,7 +62,6 @@ function updateTable(deviceList) {
             deviceList[i].frequency = parseInt(e.target.value);
         });
     }
-    // console.log(deviceList); 
     sendActionData.addEventListener('click', () => {
         updateActionDeviceList(deviceList);
     });
@@ -82,7 +81,6 @@ async function fetchDeviceActionListAndUpdateTable() {
             console.log("請求失敗");
         }
     });
-    // console.log(deviceActionList.devices);
     updateTable(deviceActionList.devices);
 }
 // fetchDeviceActionListAndUpdateTable() 
