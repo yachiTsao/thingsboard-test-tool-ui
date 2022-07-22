@@ -1,4 +1,4 @@
-function linkCreateMockData(data){
+function linkCreateMockData(data) {
     $.ajax({
         url: "http://10.204.16.106:9316/TB/device/data/setting/create",
         method: "post",
@@ -15,7 +15,7 @@ function linkCreateMockData(data){
     });
 }
 
-function linkCreateDeviceandParseJson(data){
+function linkCreateDeviceandParseJson(data) {
     //將資料轉為json格式
     function parseJsonString(data) {
         //將物件傳成字串
@@ -41,10 +41,10 @@ function linkCreateDeviceandParseJson(data){
         error: function (data) {
             alert("新增資料失敗");
         }
-    });   
+    });
 }
 
-function linkDeviceList(){
+function linkDeviceList() {
     $.ajax({
         url: 'http://10.204.16.106:9316/TB/device/list',
         type: "get",
@@ -63,7 +63,7 @@ function linkDeviceList(){
     });
 }
 
-function updateActionDeviceList(updateList){
+function updateActionDeviceList(updateList) {
     function parseJsonString(updateList) {
         return JSON.stringify({
             "deviceList": updateList

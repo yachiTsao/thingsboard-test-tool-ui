@@ -26,6 +26,7 @@ function buildTableandFourButtonFunction(deviceList) {
         ArrayofId.push(deviceList[i].id);
     }
     tablePage.innerHTML = table;
+    // console.log(table);
     // console.log(ArrayofId);
 
     function AllDevicesJsonParse() {
@@ -197,6 +198,7 @@ async function loadDeviceList() {
         type: "get",
         dataType: "json",
         success: function (info) {
+            // console.log(info.devices);
             buildTableandFourButtonFunction(info.devices);
         },
         error: function (data) {

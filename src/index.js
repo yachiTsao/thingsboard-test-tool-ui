@@ -11,7 +11,7 @@ $(document).ready(async function () {
 
     // init subpage
     hideAllSubpage();
-    $('#testDevicePage').show();
+    $('#createPage').show();
 
     $('#deviceList').on('click', function (e) {
         hideAllSubpage();

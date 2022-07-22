@@ -25,6 +25,7 @@ function updateTable(deviceList) {
     for (let i = 0; i < deviceList.length; i++) {
         table += tableItemBuilder(deviceList[i], i);
     }
+    // console.log(table);
     //將表格填入網頁
     tablePage.innerHTML = table;
 
@@ -78,6 +79,7 @@ async function fetchDeviceActionListAndUpdateTable() {
             console.log("請求失敗");
         }
     });
+    // console.log(deviceActionList.devices);
     updateTable(deviceActionList.devices);
 }
-// fetchDeviceActionListAndUpdateTable() 
+fetchDeviceActionListAndUpdateTable() 
