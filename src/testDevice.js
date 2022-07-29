@@ -15,6 +15,16 @@ function buildItem(device, index) {
     <td> ${device.testTime} </td><td> ${device.frequency} s </td><td> ${canLoadData} </td><td> ${device.testTime} </td>
     <td><button id="changeBtn-${index}" type="bottom" class="btn btn-outline-secondary"style="margin:10px;">編輯</button></td></tr>`
 }
+function buildSingleItem(device, index) {
+    let canLoadData = "No";
+    const isSendData = findArrayItem(device.action, 'sendData');
+    if (!device.action[0]) device.action[0] = ""; //sendData
+    if (!device.action[1]) device.action[1] = ""; //subscribeRPC
+    if (isSendData === true) canLoadData = "Yes";
+
+    return `<tr><td> ${device.name} </td><td> ${device.type} </td><td> ${device.action[0]} <br> ${device.action[1]} </td>
+    <td> ${device.testTime} </td><td> ${device.frequency} s </td><td> ${canLoadData} </td></tr>`
+}
 
 function buildTableandFourButtonFunction(deviceList) {
     const tablePage = document.getElementById('test-device-data');
@@ -34,35 +44,27 @@ function buildTableandFourButtonFunction(deviceList) {
         });
     }
     // console.log(deviceList);
-    function buildSingleItem(device, index) {
-        let canLoadData = "No";
-        const isSendData = findArrayItem(device.action, 'sendData');
-        if (!device.action[0]) device.action[0] = ""; //sendData
-        if (!device.action[1]) device.action[1] = ""; //subscribeRPC
-        if (isSendData === true) canLoadData = "Yes";
-    
-        return `<tr><td> ${device.name} </td><td> ${device.type} </td><td> ${device.action[0]} <br> ${device.action[1]} </td>
-        <td> ${device.testTime} </td><td> ${device.frequency} s </td><td> ${canLoadData} </td></tr>`
-    }
 
     const singlePage = document.getElementById('single-test-device');
     for(let k = 0; k < deviceList.length; k++){
         $(`#changeBtn-${k}`).on('click', changeSingleDevice =>{
+            $('#single-device-list').show();
+            $('#delete-Device').show();
+            $('#remove-SubscribeRPC').show();
+            $('#stop-UploadData').show();
             let singleTable = '';
             singleTable += buildSingleItem(deviceList[k],k);
-            console.log(singleTable);
+            // console.log(singleTable);
             singlePage.innerHTML = singleTable;
             $(`#delete-Device`).on('click', deleteSingleDevice => {
                 deleteDevices(deviceList[k].id);
             });
             $(`#remove-SubscribeRPC`).on('click', removeSingleSubscribeRPC => {
                 removeSubscribeRPC(deviceList[k]);
-                // console.log(singleTable,deviceList[k].id);
             });
             $(`#stop-UploadData`).on('click', stopSingleUploadData =>{
                 stopUploadData(deviceList[k]);
             });
-
         });
     }
     

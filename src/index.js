@@ -6,12 +6,20 @@ function hideAllSubpage(params) {
     $('.subpage').hide();
 }
 
+function hideSingleDevice(){
+    $('#single-device-list').hide();
+    $('#delete-Device').hide();
+    $('#remove-SubscribeRPC').hide();
+    $('#stop-UploadData').hide();
+}
+
 $(document).ready(async function () {
     // API 非同步操作 await
 
     // init subpage
     hideAllSubpage();
     $('#testDevicePage').show();
+    
 
     $('#deviceList').on('click', function (e) {
         hideAllSubpage();
@@ -45,6 +53,7 @@ $(document).ready(async function () {
     });
 
     $('#TestDevice').on('click', function (e) {
+        hideSingleDevice();
         hideAllSubpage();
         $('#testDevicePage').show();
         removeAllLinkActiveClassName();

@@ -35,6 +35,7 @@ function removeSubscribeRPC(singleDeviceData) {
             success: function (res) {
                 alert("已成功解除訂閱RPC");
                 loadDeviceList();
+                // loadSingleDeviceList();
                 // console.log(res);
             },
             error: function (data) {
@@ -47,14 +48,13 @@ function SendDateJsonParse(singleDeviceData) {
     return JSON.stringify({
         "deviceList": [singleDeviceData.id],
         "action": "sendData"
-        // "canFindMockDataEntity": false
     });
 }
 function stopUploadData(singleDeviceData) {
     let isFindSendData = false;
     isFindSendData = singleDeviceData.action.includes('sendData');
     if (isFindSendData === false) {
-        alert("停止上傳資料失敗1");
+        alert("停止上傳資料失敗");
     } else {
         $.ajax({
             url: "http://10.204.16.106:9316/TB/device/action/stop",
@@ -74,3 +74,17 @@ function stopUploadData(singleDeviceData) {
         });
     }
 }
+// function loadSingleDeviceList() {
+//     $.ajax({
+//         url: 'http://10.204.16.106:9316/TB/device/action/list',
+//         type: "get",
+//         dataType: "json",
+//         success: function (info) {
+//             console.log(info.devices);
+//             // reLoadSingleDevice(info.devices);
+//         },
+//         error: function (data) {
+//             console.log("請求失敗");
+//         }
+//     });
+// }
