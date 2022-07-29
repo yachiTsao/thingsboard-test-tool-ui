@@ -49,5 +49,6 @@ $(document).ready(async function () {
         $('#testDevicePage').show();
         removeAllLinkActiveClassName();
         $('#TestDevice').addClass('active');
+        loadDeviceList();
     });
 });

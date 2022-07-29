@@ -83,3 +83,18 @@ function updateActionDeviceList(updateList) {
         }
     });
 } 
+
+function loadDeviceList() {
+    const deviceActionList = $.ajax({
+        url: 'http://10.204.16.106:9316/TB/device/action/list',
+        type: "get",
+        dataType: "json",
+        success: function (info) {
+            // console.log(info.devices);
+            buildTableandFourButtonFunction(info.devices);
+        },
+        error: function (data) {
+            console.log("請求失敗");
+        }
+    });
+}
