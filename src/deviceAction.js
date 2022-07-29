@@ -24,7 +24,7 @@ function tableItemBuilder(device, index) {
 function updateTable(deviceList) {
     const tablePage = document.querySelector('#device-action-data');
     let table = '';
-    console.log(deviceList);
+    // console.log(deviceList);
     for (let i = 0; i < deviceList.length; i++) {
         table += tableItemBuilder(deviceList[i], i);
     }
@@ -63,6 +63,7 @@ function updateTable(deviceList) {
         });
     }
     sendActionData.addEventListener('click', () => {
+        console.log(sendActionData);
         updateActionDeviceList(deviceList);
     });
 }

@@ -4,7 +4,7 @@ function findArrayItem(arr, target) {
     if (!result) return false;//arr.push(result);
     return true;
 }
-function buildItem(device) {
+function buildItem(device, index) {
     let canLoadData = "No";
     const isSendData = findArrayItem(device.action, 'sendData');
     if (!device.action[0]) device.action[0] = ""; //sendData
@@ -12,7 +12,8 @@ function buildItem(device) {
     if (isSendData === true) canLoadData = "Yes";
 
     return `<tr><td> ${device.name} </td><td> ${device.type} </td><td> ${device.action[0]} <br> ${device.action[1]} </td>
-    <td> ${device.testTime} </td><td> ${device.frequency} s </td><td> ${canLoadData} </td><td> ${device.testTime} </td></tr>`
+    <td> ${device.testTime} </td><td> ${device.frequency} s </td><td> ${canLoadData} </td><td> ${device.testTime} </td>
+    <td><button id="changeBtn-${index}" type="bottom" class="btn btn-outline-secondary"style="margin:10px;">編輯</button></td></tr>`
 }
 
 function buildTableandFourButtonFunction(deviceList) {
@@ -22,20 +23,49 @@ function buildTableandFourButtonFunction(deviceList) {
     ArrayofId = [];
     // console.log(ArrayofId);
     for (let i = 0; i < deviceList.length; i++) {
-        table += buildItem(deviceList[i]);
+        table += buildItem(deviceList[i],i);
         ArrayofId.push(deviceList[i].id);
     }
     tablePage.innerHTML = table;
-    // console.log(table);
-    // console.log(ArrayofId);
 
     function AllDevicesJsonParse() {
         return JSON.stringify({
             "deviceList": ArrayofId
         });
     }
+    // console.log(deviceList);
+    function buildSingleItem(device, index) {
+        let canLoadData = "No";
+        const isSendData = findArrayItem(device.action, 'sendData');
+        if (!device.action[0]) device.action[0] = ""; //sendData
+        if (!device.action[1]) device.action[1] = ""; //subscribeRPC
+        if (isSendData === true) canLoadData = "Yes";
+    
+        return `<tr><td> ${device.name} </td><td> ${device.type} </td><td> ${device.action[0]} <br> ${device.action[1]} </td>
+        <td> ${device.testTime} </td><td> ${device.frequency} s </td><td> ${canLoadData} </td></tr>`
+    }
 
-    // console.log(AllDevicesJsonParse(ArrayofId));
+    const singlePage = document.getElementById('single-test-device');
+    for(let k = 0; k < deviceList.length; k++){
+        $(`#changeBtn-${k}`).on('click', changeSingleDevice =>{
+            let singleTable = '';
+            singleTable += buildSingleItem(deviceList[k],k);
+            console.log(singleTable);
+            singlePage.innerHTML = singleTable;
+            $(`#delete-Device`).on('click', deleteSingleDevice => {
+                deleteDevices(deviceList[k].id);
+            });
+            $(`#remove-SubscribeRPC`).on('click', removeSingleSubscribeRPC => {
+                removeSubscribeRPC(deviceList[k]);
+                // console.log(singleTable,deviceList[k].id);
+            });
+            $(`#stop-UploadData`).on('click', stopSingleUploadData =>{
+                stopUploadData(deviceList[k]);
+            });
+
+        });
+    }
+    
     function deleteAllDevices(e) {
         $.ajax({
             url: "http://10.204.16.106:9316/TB/device/delete",
@@ -73,8 +103,9 @@ function buildTableandFourButtonFunction(deviceList) {
                 contentType: "application/json",
                 data: RPCJsonParse(table),
                 success: function (res) {
-                    alert("已成功解除訂閱RPC");
-                    console.log(res);
+                    // alert("已成功解除訂閱RPC");
+                    loadDeviceList();
+                    // console.log(res);
                 },
                 error: function (data) {
                     alert("解除訂閱RPC失敗");
@@ -105,17 +136,19 @@ function buildTableandFourButtonFunction(deviceList) {
                 contentType: "application/json",
                 data: SendDateJsonParse(table),
                 success: function (res) {
-                    alert("停止上傳資料成功");
-                    console.log(res);
+                    // alert("停止上傳資料成功");
+                    loadDeviceList();
+                    // console.log(res);
                 },
                 error: function (data) {
                     alert("停止上傳資料失敗");
+                    console.log(data);
                 }
             });
         }
-
     }
     $(`#stop-allUploadData`).on('click', stopAllUploadData);
+
 
     // console.log(deviceList);
     function buildData(data) {
@@ -123,12 +156,12 @@ function buildTableandFourButtonFunction(deviceList) {
         const arrayData = [];
         // const arrayTitle = Object.keys(data[0]);
         // 利用mapping抓對照的值
-        const CSVTitleMapping = getGlobalVariable('CSVTitleMapping'); 
+        const CSVTitleMapping = getGlobalVariable('CSVTitleMapping');
         // 連接API的key
-        const CSVTitleArray = Object.keys(CSVTitleMapping) || []; 
+        const CSVTitleArray = Object.keys(CSVTitleMapping) || [];
 
         if (CSVTitleArray.length === 0) return;
-        arrayData.push(Object.values(CSVTitleMapping)); 
+        arrayData.push(Object.values(CSVTitleMapping));
         //key對照表的value值(要在CSV呈現的)
 
         for (let i = 0; i < data.length; i++) {
@@ -136,7 +169,7 @@ function buildTableandFourButtonFunction(deviceList) {
             for (let j = 0; j < arrayData.length; j++) {
                 let item = [];
                 //利用key抓每個裝置的值
-                CSVTitleArray.forEach((key) => { 
+                CSVTitleArray.forEach((key) => {
                     if (key === 'action') {
                         item.push(data[j][key].join(' & '));
                     } else {
@@ -150,7 +183,7 @@ function buildTableandFourButtonFunction(deviceList) {
         finArray = arrayData[data.length]
         console.log(finArray);
         let csvData = '';
-        csvData += arrayData[0]+ '\n';
+        csvData += arrayData[0] + '\n';
         for (let k = 0; k < finArray.length; k++) {
             let dataString = finArray[k].join(',') + '\n';
             csvData += dataString;
@@ -181,7 +214,7 @@ function buildTableandFourButtonFunction(deviceList) {
                 if (!result) {
                     alert("資料轉換失敗");
                     return;
-                } 
+                }
                 downloadCSV(result);
             },
             error: function (data) {
@@ -191,19 +224,5 @@ function buildTableandFourButtonFunction(deviceList) {
     }
     $(`#download-testResult`).on('click', downloadResult);
 }
-
-// async function loadDeviceList() {
-//     const deviceActionList = await $.ajax({
-//         url: 'http://10.204.16.106:9316/TB/device/action/list',
-//         type: "get",
-//         dataType: "json",
-//         success: function (info) {
-//             // console.log(info.devices);
-//             buildTableandFourButtonFunction(info.devices);
-//         },
-//         error: function (data) {
-//             console.log("請求失敗");
-//         }
-//     });
-// }
 loadDeviceList()
+// const sendActionData = document.getElementById();
