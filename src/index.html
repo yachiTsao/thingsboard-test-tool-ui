@@ -135,8 +135,7 @@
         </div>
         <div id="testDevicePage" class="subpage">
             <h3>測試裝置列表</h3>
-            <!-- <form id="test-deviceData-form"> -->
-            <table class="table table-striped">
+            <table class="table table-striped table-hover" id="totalDeviceTable">
                 <thead>
                     <tr>
                         <td>裝置名稱</td>
@@ -146,21 +145,20 @@
                         <td>裝置上傳頻率</td>
                         <td>是否可上傳資料</td>
                         <td>上傳資料次數</td>
-                        <td>更改</td>
                     </tr>
                 </thead>
                 <tbody id="test-device-data"></tbody>
                 <div class="d-md-flex justify-content-md-end">
-                    <button id="delete-allDevice" type="bottom" class="btn btn-outline-danger"
+                    <button id="delete-allDevice" type="button" class="btn btn-outline-danger"
                         style="margin:10px;">刪除所有測試裝置
                     </button>
-                    <button id="remove-allSubscribeRPC" type="bottom" class="btn btn-outline-secondary"
+                    <button id="remove-allSubscribeRPC" type="button" class="btn btn-outline-secondary"
                         style="margin:10px;">全部裝置解除RPC訂閱
                     </button>
-                    <button id="stop-allUploadData" type="bottom" class="btn btn-outline-secondary"
+                    <button id="stop-allUploadData" type="button" class="btn btn-outline-secondary"
                         style="margin:10px;">全部裝置停止上傳資料
                     </button>
-                    <button id="download-testResult" type="bottom" class="btn btn-outline-success"
+                    <button id="download-testResult" type="button" class="btn btn-outline-success"
                         style="margin:10px;">下載測試結果
                     </button>
                 </div>
@@ -174,25 +172,23 @@
                         <td>測試時間</td>
                         <td>裝置上傳頻率</td>
                         <td>是否可上傳資料</td>
+                        <td>上傳資料次數</td>
                     </tr>
                 </thead>
                 <tbody id="single-test-device"></tbody>
                 <div class="d-md-flex justify-content-md-end">
-                    <button id="delete-Device" type="bottom" class="btn btn-outline-danger"
+                    <button id="deleteDeviceBtn" type="button" class="btn btn-outline-danger"
                         style="margin:10px; display: none;">刪除測試裝置
                     </button>
-                    <button id="remove-SubscribeRPC" type="bottom" class="btn btn-outline-secondary"
+                    <button id="removeRPCBtn" type="button" class="btn btn-outline-secondary"
                         style="margin:10px; display: none;">裝置解除RPC訂閱
                     </button>
-                    <button id="stop-UploadData" type="bottom" class="btn btn-outline-secondary"
+                    <button id="stopUploadDataBtn" type="button" class="btn btn-outline-secondary"
                         style="margin:10px; display: none;">裝置停止上傳資料
                     </button>
-                    <!-- <button id="check-Data" type="bottom" class="btn btn-outline-info"
-                    style="margin:10px;">確定
-                    </button> -->
                 </div>
             </table>
-            <!-- </form> -->
+            <div id="liveAlertPlaceholder"></div>
         </div>
     </main>
     <footer></footer>
@@ -207,4 +203,5 @@
 <script src="./deviceAction.js"></script>
 <script src="./testDevice.js"></script>
 <script src="setSingleDeviceAction.js"></script>
+
 </html>

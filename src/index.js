@@ -6,11 +6,11 @@ function hideAllSubpage(params) {
     $('.subpage').hide();
 }
 
-function hideSingleDevice(){
+function hideSingleDevice() {
     $('#single-device-list').hide();
-    $('#delete-Device').hide();
-    $('#remove-SubscribeRPC').hide();
-    $('#stop-UploadData').hide();
+    $('#deleteDeviceBtn').hide();
+    $('#removeRPCBtn').hide();
+    $('#stopUploadDataBtn').hide();
 }
 
 $(document).ready(async function () {
@@ -19,7 +19,7 @@ $(document).ready(async function () {
     // init subpage
     hideAllSubpage();
     $('#testDevicePage').show();
-    
+
 
     $('#deviceList').on('click', function (e) {
         hideAllSubpage();

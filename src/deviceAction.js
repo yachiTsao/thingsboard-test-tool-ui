@@ -62,7 +62,9 @@ function updateTable(deviceList) {
             deviceList[i].frequency = parseInt(e.target.value);
         });
     }
-    sendActionData.addEventListener('click', () => {
+    sendActionData.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         console.log(sendActionData);
         updateActionDeviceList(deviceList);
     });

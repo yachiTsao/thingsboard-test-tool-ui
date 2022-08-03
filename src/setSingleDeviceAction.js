@@ -1,5 +1,5 @@
-function deleteDevices(idData) {
-    $.ajax({
+function deleteDevice(idData) {
+    return $.ajax({
         url: "http://10.204.16.106:9316/TB/device/delete",
         method: "delete",
         dataType: "json",
@@ -16,13 +16,13 @@ function deleteDevices(idData) {
 
 function RPCJsonParse(singleDeviceData) {
     return JSON.stringify({
-        "deviceList": [singleDeviceData.id],
+        "deviceList": [singleDeviceData[1]],
         "action": "subscribeRPC"
     });
 }
 function removeSubscribeRPC(singleDeviceData) {
     let isFindRPC = false;
-    isFindRPC = singleDeviceData.action.includes('subscribeRPC');
+    isFindRPC = singleDeviceData.includes('subscribeRPC');
     if (isFindRPC === false) {
         alert("解除訂閱RPC失敗");
     } else {
@@ -34,9 +34,6 @@ function removeSubscribeRPC(singleDeviceData) {
             data: RPCJsonParse(singleDeviceData),
             success: function (res) {
                 alert("已成功解除訂閱RPC");
-                loadDeviceList();
-                // loadSingleDeviceList();
-                // console.log(res);
             },
             error: function (data) {
                 alert("解除訂閱RPC失敗");
@@ -44,15 +41,16 @@ function removeSubscribeRPC(singleDeviceData) {
         });
     }
 }
+
 function SendDateJsonParse(singleDeviceData) {
     return JSON.stringify({
-        "deviceList": [singleDeviceData.id],
+        "deviceList": [singleDeviceData[1]],
         "action": "sendData"
     });
 }
 function stopUploadData(singleDeviceData) {
     let isFindSendData = false;
-    isFindSendData = singleDeviceData.action.includes('sendData');
+    isFindSendData = singleDeviceData.includes('sendData');
     if (isFindSendData === false) {
         alert("停止上傳資料失敗");
     } else {
@@ -64,8 +62,7 @@ function stopUploadData(singleDeviceData) {
             data: SendDateJsonParse(singleDeviceData),
             success: function (res) {
                 alert("停止上傳資料成功");
-                loadDeviceList();
-                // console.log(res);
+                loadDeviceList(true);
             },
             error: function (data) {
                 alert("停止上傳資料失敗");
@@ -74,17 +71,3 @@ function stopUploadData(singleDeviceData) {
         });
     }
 }
-// function loadSingleDeviceList() {
-//     $.ajax({
-//         url: 'http://10.204.16.106:9316/TB/device/action/list',
-//         type: "get",
-//         dataType: "json",
-//         success: function (info) {
-//             console.log(info.devices);
-//             // reLoadSingleDevice(info.devices);
-//         },
-//         error: function (data) {
-//             console.log("請求失敗");
-//         }
-//     });
-// }

@@ -31,6 +31,7 @@ function parseMockData(dataset) {
 function mockDataSubmit(event) {
     //清除預設
     event.preventDefault();
+    event.stopPropagation();
     //抓form裡面的資料
     const data = new FormData(event.target);
     //若觸發一次parseData()就會跑一次alert 以此類堆
