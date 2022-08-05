@@ -58,6 +58,9 @@ $(document).ready(async function () {
         $('#testDevicePage').show();
         removeAllLinkActiveClassName();
         $('#TestDevice').addClass('active');
+        const tablePage = document.getElementById('test-device-data');
+        tablePage.innerHTML = '';
         loadDeviceList();
+        changeSingleDeviceAction();
     });
 });

@@ -1,3 +1,16 @@
+const sendMockDataAlertBtn = (message, type) => {
+    const alertPlaceholder = document.getElementById('sendMockDataAlert')
+    // const allDeviceActionAlert = document.getElementById('allDeviceAlert')
+
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`
+    ].join('')
+    alertPlaceholder.append(wrapper);  
+
+    setTimeout(() => wrapper.remove(), 1500);
+}
 //測試輸入文字是否為json格式
 function parseJson(str) {
     //先把非法的可能性排除
@@ -9,7 +22,7 @@ function parseJson(str) {
         if (typeof parse !== "object") return;
         return parse;
     } catch (e) {
-        alert("請輸入合法Json格式");
+        sendMockDataAlertBtn('請輸入合法Json格式', 'warning');
         //回傳空值
         return;
     }
@@ -44,3 +57,10 @@ function mockDataSubmit(event) {
 
 const mockDataForm = document.querySelector('#device-mockData-form');
 mockDataForm.addEventListener('submit', mockDataSubmit);
+
+// const alertMockData = document.getElementById('send-devicemockdata')
+// if (alertTrigger) {
+//   alertTrigger.addEventListener('click', () => {
+//     alert('成功解除RPC訂閱', 'success')
+//   })
+// }

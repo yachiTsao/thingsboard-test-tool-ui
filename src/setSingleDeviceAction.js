@@ -6,10 +6,10 @@ function deleteDevice(idData) {
         contentType: "application/json",
         data: idData,
         success: function (res) {
-            alert("已成功刪除資料");
+            alertBtn('已成功刪除資料', 'success');
         },
         error: function (data) {
-            alert("刪除資料失敗");
+            alertBtn('刪除資料失敗', 'danger');
         }
     });
 }
@@ -24,8 +24,8 @@ function removeSubscribeRPC(singleDeviceData) {
     let isFindRPC = false;
     isFindRPC = singleDeviceData.includes('subscribeRPC');
     if (isFindRPC === false) {
-        alert("解除訂閱RPC失敗");
-    } else {
+        alertBtn('單台裝置解除RPC訂閱失敗', 'danger');
+        } else {
         $.ajax({
             url: "http://10.204.16.106:9316/TB/device/action/stop",
             method: "post",
@@ -33,10 +33,12 @@ function removeSubscribeRPC(singleDeviceData) {
             contentType: "application/json",
             data: RPCJsonParse(singleDeviceData),
             success: function (res) {
-                alert("已成功解除訂閱RPC");
+                console.log('已成功解除訂閱');
+                alertBtn('單台裝置成功解除RPC訂閱', 'success');
+                loadDeviceList();
             },
             error: function (data) {
-                alert("解除訂閱RPC失敗");
+                alertBtn('單台裝置解除RPC訂閱失敗', 'danger');            
             }
         });
     }
@@ -52,7 +54,7 @@ function stopUploadData(singleDeviceData) {
     let isFindSendData = false;
     isFindSendData = singleDeviceData.includes('sendData');
     if (isFindSendData === false) {
-        alert("停止上傳資料失敗");
+        alertBtn('單台裝置停止上傳資料失敗', 'danger');
     } else {
         $.ajax({
             url: "http://10.204.16.106:9316/TB/device/action/stop",
@@ -61,12 +63,11 @@ function stopUploadData(singleDeviceData) {
             contentType: "application/json",
             data: SendDateJsonParse(singleDeviceData),
             success: function (res) {
-                alert("停止上傳資料成功");
-                loadDeviceList(true);
+                console.log('已成功停止上傳');
+                alertBtn('單台裝置成功停止上傳資料', 'success');
             },
             error: function (data) {
-                alert("停止上傳資料失敗");
-                console.log(data);
+                alertBtn('單台裝置停止上傳資料失敗', 'danger');
             }
         });
     }

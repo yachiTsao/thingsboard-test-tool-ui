@@ -1,7 +1,17 @@
 const sendActionData = document.getElementById('send-deviceActionData');
+const sendAlertBtn = (message, type) => {
+    const alertPlaceholder = document.getElementById('sendDeviceActionAlert')
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`
+    ].join('')
+    alertPlaceholder.append(wrapper);  
+
+    setTimeout(() => wrapper.remove(), 1500);
+}
 // 搜尋action 從陣列搜尋
 function findArrayItem(arr, target) {
-    // console.log("1");
     if (!Array.isArray(arr) || arr.length === 0) return false;
     const result = arr.find(element => element === target);
     if (!result) return false;
@@ -13,7 +23,6 @@ function tableItemBuilder(device, index) {
     //判斷陣列內是否有行為
     const isSendData = findArrayItem(device.action, 'sendData');
     const isSubscribeRPC = findArrayItem(device.action, 'subscribeRPC');
-    // console.log(isSendData);
     return `<tr><td> ${device.name} </td><td> ${device.type} </td>
     <td><input name=actions id=subscribeRPC-${index} type=checkbox class=form-check-input ${isSubscribeRPC ? 'checked' : ''}> SubscribeRPC </input><br>
     <input name=actions id=sendData-${index} type=checkbox class=form-check-input ${isSendData ? 'checked' : ''}> SendData </input></td>
@@ -24,11 +33,9 @@ function tableItemBuilder(device, index) {
 function updateTable(deviceList) {
     const tablePage = document.querySelector('#device-action-data');
     let table = '';
-    // console.log(deviceList);
     for (let i = 0; i < deviceList.length; i++) {
         table += tableItemBuilder(deviceList[i], i);
     }
-    // console.log(table);
     //將表格填入網頁
     tablePage.innerHTML = table;
 
@@ -36,7 +43,7 @@ function updateTable(deviceList) {
         function sendDataCallback(e) {
             // 變更為正確狀態
             e.target.value = e.target.checked;
-            console.log(e.target.checked, e.target.value);
+            // console.log(e.target.checked, e.target.value);
 
             if (e.target.checked === true) { //如果是true就加入(原本沒有)
                 deviceList[i].action.push('sendData');
@@ -48,7 +55,7 @@ function updateTable(deviceList) {
 
         function subscribeRPCCallback(e) {
             e.target.value = e.target.checked;
-            console.log(e.target.checked, e.target.value);
+            // console.log(e.target.checked, e.target.value);
 
             if (e.target.checked === true) {
                 deviceList[i].action.push('subscribeRPC');
@@ -62,28 +69,14 @@ function updateTable(deviceList) {
             deviceList[i].frequency = parseInt(e.target.value);
         });
     }
-    sendActionData.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log(sendActionData);
-        updateActionDeviceList(deviceList);
-    });
+    const setDeviceAction = getGlobalVariable('setDeviceAction');
+    if(!setDeviceAction){
+        sendActionData.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // console.log(sendActionData);
+            updateActionDeviceList(deviceList);
+        });
+        setGlobalVariable('setDeviceAction', true);
+    }
 }
-
-//連接API
-async function fetchDeviceActionListAndUpdateTable() {
-    const deviceActionList = await $.ajax({
-        url: 'http://10.204.16.106:9316/TB/device/action/list',
-        type: "get",
-        dataType: "json",
-        success: function (info) {
-            // console.log(info);
-            // return deviceActionList;
-        },
-        error: function (data) {
-            console.log("請求失敗");
-        }
-    });
-    updateTable(deviceActionList.devices);
-}
-// fetchDeviceActionListAndUpdateTable() 

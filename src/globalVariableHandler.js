@@ -14,6 +14,10 @@ function initGlobalVariable() {
         // 下載報表 key & display name完全對應
         // CSVTitleArray: ['name', 'type', 'action', 'sendTimes', 'testTime', 'frequency'],
         CSVTitleMapping,
+        //flag 讓eventlistener只掛一次 不會重複掛
+        setDeviceAction: false,
+        singleDeviceAction: false,
+        allDeviceAction: false
     };
 }
 
