@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Tool</title>
+    <title>IOT 裝置模擬器</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -41,19 +41,6 @@
             </ul>
         </div>
 
-        <div id="listPage" class="subpage">
-            <h3>裝置列表</h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <td>裝置名稱</td>
-                        <td>裝置類型</td>
-                    </tr>
-                </thead>
-                <tbody id="device-list-data">
-                </tbody>
-            </table>
-        </div>
         <div id="createPage" class="subpage">
             <h3>裝置資料</h3>
             <form id="create-device-form">
@@ -87,6 +74,20 @@
                         style="margin:10px;">送出</button>
                 </div>
             </form>
+            <div id="sendCreateDeviceAlert"></div>
+        </div>
+        <div id="listPage" class="subpage">
+            <h3>裝置列表</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>裝置名稱</td>
+                        <td>裝置類型</td>
+                    </tr>
+                </thead>
+                <tbody id="device-list-data">
+                </tbody>
+            </table>
         </div>
         <div id="mockDataPage" class="subpage">
             <h3>裝置類型資料</h3>
@@ -113,6 +114,7 @@
                         style="margin:10px;">送出</button>
                 </div>
             </form>
+            <div id="sendMockDataAlert"></div>
         </div>
         <div id="actionPage" class="subpage">
             <h3>裝置行為</h3>
@@ -132,11 +134,11 @@
                     </button>
                 </div>
             </table>
+            <div id="sendDeviceActionAlert"></div>
         </div>
         <div id="testDevicePage" class="subpage">
             <h3>測試裝置列表</h3>
-            <!-- <form id="test-deviceData-form"> -->
-            <table class="table table-striped">
+            <table class="table table-striped table-hover" id="totalDeviceTable">
                 <thead>
                     <tr>
                         <td>裝置名稱</td>
@@ -150,21 +152,46 @@
                 </thead>
                 <tbody id="test-device-data"></tbody>
                 <div class="d-md-flex justify-content-md-end">
-                    <button id="delete-allDevice" type="bottom" class="btn btn-outline-danger"
+                    <button id="delete-allDevice" type="button" class="btn btn-outline-danger"
                         style="margin:10px;">刪除所有測試裝置
                     </button>
-                    <button id="remove-allSubscribeRPC" type="bottom" class="btn btn-outline-secondary"
+                    <button id="remove-allSubscribeRPC" type="button" class="btn btn-outline-secondary"
                         style="margin:10px;">全部裝置解除RPC訂閱
                     </button>
-                    <button id="stop-allUploadData" type="bottom" class="btn btn-outline-secondary"
+                    <button id="stop-allUploadData" type="button" class="btn btn-outline-secondary"
                         style="margin:10px;">全部裝置停止上傳資料
                     </button>
-                    <button id="download-testResult" type="bottom" class="btn btn-outline-success"
+                    <button id="download-testResult" type="button" class="btn btn-outline-success"
                         style="margin:10px;">下載測試結果
                     </button>
                 </div>
             </table>
-            <!-- </form> -->
+            <table class="table table-striped" id="single-device-list" style=" display: none;">
+                <thead>
+                    <tr>
+                        <td>裝置名稱</td>
+                        <td>裝置類型</td>
+                        <td>裝置行為</td>
+                        <td>測試時間</td>
+                        <td>裝置上傳頻率</td>
+                        <td>是否可上傳資料</td>
+                        <td>上傳資料次數</td>
+                    </tr>
+                </thead>
+                <tbody id="single-test-device"></tbody>
+                <div class="d-md-flex justify-content-md-end">
+                    <button id="deleteDeviceBtn" type="button" class="btn btn-outline-danger"
+                        style="margin:10px; display: none;">刪除測試裝置
+                    </button>
+                    <button id="removeRPCBtn" type="button" class="btn btn-outline-secondary"
+                        style="margin:10px; display: none;">裝置解除RPC訂閱
+                    </button>
+                    <button id="stopUploadDataBtn" type="button" class="btn btn-outline-secondary"
+                        style="margin:10px; display: none;">裝置停止上傳資料
+                    </button>
+                </div>
+            </table>
+            <div id="DeviceAlert"></div>
         </div>
     </main>
     <footer></footer>
@@ -178,4 +205,6 @@
 <script src="./deviceMockData.js"></script>
 <script src="./deviceAction.js"></script>
 <script src="./testDevice.js"></script>
+<script src="./setSingleDeviceAction.js"></script>
+<script src="./setAllDeviceAction.js"></script>
 </html>

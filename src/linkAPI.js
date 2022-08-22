@@ -1,16 +1,16 @@
 function linkCreateMockData(data) {
     $.ajax({
-        url: "http://10.204.16.106:9316/TB/device/data/setting/create",
+        url: "http://10.204.16.106:8888/TB/device/data/setting/create",
         method: "post",
         //上傳json格式需加入以下兩行
         dataType: "json",
         contentType: "application/json",
         data: data,
         success: function (res) {
-            alert("已成功新增資料");
+            sendMockDataAlertBtn('已成功新增資料', 'success');
         },
         error: function (data) {
-            alert("新增資料失敗");
+            sendMockDataAlertBtn('新增資料失敗', 'danger');
         }
     });
 }
@@ -28,25 +28,26 @@ function linkCreateDeviceandParseJson(data) {
     }
 
     $.ajax({
-        url: "http://10.204.16.106:9316/TB/device/create",
+        url: "http://10.204.16.106:8888/TB/device/create",
         method: "post",
         //上傳json格式需加入以下兩行
         dataType: "json",
         contentType: "application/json",
         data: parseJsonString(data),
         success: function (res) {
-            alert("已成功新增資料");
+            sendCreateDeviceAlertBtn('已成功新增資料', 'success');
+            //在windows中保存devicelist
             setGlobalVariable('deviceList', res)
         },
         error: function (data) {
-            alert("新增資料失敗");
+            sendCreateDeviceAlertBtn('新增資料失敗', 'danger');
         }
     });
 }
 
 function linkDeviceList() {
     $.ajax({
-        url: 'http://10.204.16.106:9316/TB/device/list',
+        url: 'http://10.204.16.106:8888/TB/device/list',
         type: "get",
         dataType: "json",
         success: function (info) {
@@ -70,28 +71,57 @@ function updateActionDeviceList(updateList) {
         });
     }
     $.ajax({
-        url: "http://10.204.16.106:9316/TB/device/action/update",
+        url: "http://10.204.16.106:8888/TB/device/action/update",
         method: "post",
         dataType: "json",
         contentType: "application/json",
         data: parseJsonString(updateList),
         success: function (res) {
-            alert("已成功新增資料");
+            sendAlertBtn('已成功新增資料', 'success');
         },
         error: function (data) {
-            alert("新增資料失敗");
+            sendAlertBtn('新增資料失敗', 'danger');
         }
     });
-} 
+}
 
-function loadDeviceList() {
-    const deviceActionList = $.ajax({
-        url: 'http://10.204.16.106:9316/TB/device/action/list',
+function fetchDeviceActionListAndUpdateTable() {
+    $.ajax({
+        url: 'http://10.204.16.106:8888/TB/device/action/list',
         type: "get",
         dataType: "json",
         success: function (info) {
-            // console.log(info.devices);
-            buildTableandFourButtonFunction(info.devices);
+            // setGlobalVariable("deviceActionList", info.devices);
+            console.log(info.devices)
+            //設定deviceActionList的內容
+            reducer({
+                action: window.actionList.deviceAction.updateDeviceActionList, 
+                payload: info.devices
+            })
+            // console.log(getGlobalVariable("deviceActionList"));
+            updateTable(getGlobalVariable("deviceActionList"));
+        },
+        error: function (data) {
+            console.log("請求失敗");
+        }
+    });
+}
+
+function loadDeviceList() {
+    $.ajax({
+        url: 'http://10.204.16.106:8888/TB/device/action/list',
+        type: "get",
+        dataType: "json",
+        success: function (info) {
+            console.log(info.devices);
+            // buildAllDevicesTable(info.desvices);
+            reducer({
+                action: window.actionList.deviceAction.updateAllDeviceActionList, 
+                payload: info.devices
+            })
+            buildAllDevicesTable(getGlobalVariable("allDeviceActionList"));
+            console.log(getGlobalVariable("allDeviceActionList"));
+
         },
         error: function (data) {
             console.log("請求失敗");
