@@ -3,11 +3,9 @@ function AllDevicesJsonParse(allDeviceId) {
         "deviceList": allDeviceId
     });
 }
-function deleteAllDevices(e) {
-    e.preventDefault();
-    e.stopPropagation();
+function deleteAllDevices(allDeviceId) {
     $.ajax({
-        url: "http://10.204.16.106:9316/TB/device/delete",
+        url: "http://10.204.16.106:8888/TB/device/delete",
         method: "delete",
         dataType: "json",
         contentType: "application/json",
@@ -34,7 +32,7 @@ function removeAllSubscribeRPC(allDeviceData, allDeviceId) {
         alertBtn('全部裝置解除RPC訂閱失敗', 'danger');
     } else {
         $.ajax({
-            url: "http://10.204.16.106:9316/TB/device/action/stop",
+            url: "http://10.204.16.106:8888/TB/device/action/stop",
             method: "post",
             dataType: "json",
             contentType: "application/json",
@@ -63,7 +61,7 @@ function stopAllUploadData(allDeviceData, allDeviceId) {
         alertBtn('全部裝置停止上傳資料失敗', 'danger')
     } else {
         $.ajax({
-            url: "http://10.204.16.106:9316/TB/device/action/stop",
+            url: "http://10.204.16.106:8888/TB/device/action/stop",
             method: "post",
             dataType: "json",
             contentType: "application/json",
@@ -133,7 +131,7 @@ function downloadCSV(csvContent) {
 }
 function downloadResult() {
     $.ajax({
-        url: 'http://10.204.16.106:9316/TB/device/action/list',
+        url: 'http://10.204.16.106:8888/TB/device/action/list',
         type: "get",
         dataType: "json",
         success: function (info) {

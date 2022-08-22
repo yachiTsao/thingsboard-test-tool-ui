@@ -18,16 +18,7 @@ $(document).ready(async function () {
 
     // init subpage
     hideAllSubpage();
-    $('#testDevicePage').show();
-
-
-    $('#deviceList').on('click', function (e) {
-        hideAllSubpage();
-        $('#listPage').show();
-        removeAllLinkActiveClassName();
-        $('#deviceList').addClass('active');
-        linkDeviceList();
-    });
+    $('#createPage').show();
 
     $('#deviceCreate').on('click', function (e) {
         hideAllSubpage();
@@ -35,6 +26,14 @@ $(document).ready(async function () {
         removeAllLinkActiveClassName();
         $('#deviceCreate').addClass('active');
 
+    });
+
+    $('#deviceList').on('click', function (e) {
+        hideAllSubpage();
+        $('#listPage').show();
+        removeAllLinkActiveClassName();
+        $('#deviceList').addClass('active');
+        linkDeviceList();
     });
 
     $('#deviceMockData').on('click', function (e) {

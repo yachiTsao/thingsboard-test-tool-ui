@@ -1,6 +1,6 @@
 function linkCreateMockData(data) {
     $.ajax({
-        url: "http://10.204.16.106:9316/TB/device/data/setting/create",
+        url: "http://10.204.16.106:8888/TB/device/data/setting/create",
         method: "post",
         //上傳json格式需加入以下兩行
         dataType: "json",
@@ -28,7 +28,7 @@ function linkCreateDeviceandParseJson(data) {
     }
 
     $.ajax({
-        url: "http://10.204.16.106:9316/TB/device/create",
+        url: "http://10.204.16.106:8888/TB/device/create",
         method: "post",
         //上傳json格式需加入以下兩行
         dataType: "json",
@@ -36,6 +36,7 @@ function linkCreateDeviceandParseJson(data) {
         data: parseJsonString(data),
         success: function (res) {
             sendCreateDeviceAlertBtn('已成功新增資料', 'success');
+            //在windows中保存devicelist
             setGlobalVariable('deviceList', res)
         },
         error: function (data) {
@@ -46,7 +47,7 @@ function linkCreateDeviceandParseJson(data) {
 
 function linkDeviceList() {
     $.ajax({
-        url: 'http://10.204.16.106:9316/TB/device/list',
+        url: 'http://10.204.16.106:8888/TB/device/list',
         type: "get",
         dataType: "json",
         success: function (info) {
@@ -70,7 +71,7 @@ function updateActionDeviceList(updateList) {
         });
     }
     $.ajax({
-        url: "http://10.204.16.106:9316/TB/device/action/update",
+        url: "http://10.204.16.106:8888/TB/device/action/update",
         method: "post",
         dataType: "json",
         contentType: "application/json",
@@ -86,25 +87,19 @@ function updateActionDeviceList(updateList) {
 
 function fetchDeviceActionListAndUpdateTable() {
     $.ajax({
-        url: 'http://10.204.16.106:9316/TB/device/action/list',
+        url: 'http://10.204.16.106:8888/TB/device/action/list',
         type: "get",
         dataType: "json",
         success: function (info) {
-            updateTable(info.devices);
-        },
-        error: function (data) {
-            console.log("請求失敗");
-        }
-    });
-} 
-
-function loadDeviceList() {
-    $.ajax({
-        url: 'http://10.204.16.106:9316/TB/device/action/list',
-        type: "get",
-        dataType: "json",
-        success: function (info) {
-            buildAllDevicesTable(info.devices);
+            // setGlobalVariable("deviceActionList", info.devices);
+            console.log(info.devices)
+            //設定deviceActionList的內容
+            reducer({
+                action: window.actionList.deviceAction.updateDeviceActionList, 
+                payload: info.devices
+            })
+            // console.log(getGlobalVariable("deviceActionList"));
+            updateTable(getGlobalVariable("deviceActionList"));
         },
         error: function (data) {
             console.log("請求失敗");
@@ -112,3 +107,24 @@ function loadDeviceList() {
     });
 }
 
+function loadDeviceList() {
+    $.ajax({
+        url: 'http://10.204.16.106:8888/TB/device/action/list',
+        type: "get",
+        dataType: "json",
+        success: function (info) {
+            console.log(info.devices);
+            // buildAllDevicesTable(info.desvices);
+            reducer({
+                action: window.actionList.deviceAction.updateAllDeviceActionList, 
+                payload: info.devices
+            })
+            buildAllDevicesTable(getGlobalVariable("allDeviceActionList"));
+            console.log(getGlobalVariable("allDeviceActionList"));
+
+        },
+        error: function (data) {
+            console.log("請求失敗");
+        }
+    });
+}

@@ -1,6 +1,6 @@
 function deleteDevice(idData) {
     return $.ajax({
-        url: "http://10.204.16.106:9316/TB/device/delete",
+        url: "http://10.204.16.106:8888/TB/device/delete",
         method: "delete",
         dataType: "json",
         contentType: "application/json",
@@ -27,7 +27,7 @@ function removeSubscribeRPC(singleDeviceData) {
         alertBtn('單台裝置解除RPC訂閱失敗', 'danger');
         } else {
         $.ajax({
-            url: "http://10.204.16.106:9316/TB/device/action/stop",
+            url: "http://10.204.16.106:8888/TB/device/action/stop",
             method: "post",
             dataType: "json",
             contentType: "application/json",
@@ -57,7 +57,7 @@ function stopUploadData(singleDeviceData) {
         alertBtn('單台裝置停止上傳資料失敗', 'danger');
     } else {
         $.ajax({
-            url: "http://10.204.16.106:9316/TB/device/action/stop",
+            url: "http://10.204.16.106:8888/TB/device/action/stop",
             method: "post",
             dataType: "json",
             contentType: "application/json",

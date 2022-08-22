@@ -26,7 +26,7 @@ function buildItem(device) {
     if (!device.action[0]) device.action[0] = ""; //sendData
     if (!device.action[1]) device.action[1] = ""; //subscribeRPC
     if (isSendData === true) canLoadData = "Yes";
-
+    // if(device.frequency === undefined)device.frequency = 60;
     return `<tr><td style=" display: none;"> ${device.id} </td><td> ${device.name} </td><td> ${device.type} </td><td> ${device.action[0]} <br> ${device.action[1]} </td>
     <td> ${device.testTime} </td><td> ${device.frequency} s </td><td> ${canLoadData} </td><td> ${device.testTime} </td></tr>`
 }
@@ -70,6 +70,7 @@ function changeSingleDeviceAction() {
     const singlePage = $("#single-test-device");
     const singleDeviceAction = getGlobalVariable('singleDeviceAction');
     if (!singleDeviceAction) {
+        
         $(`#deleteDeviceBtn`).on('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -114,11 +115,30 @@ function buildSingleDeviceTable() {
             if (singlePage.querySelector('tr') === null) {
                 singlePage.appendChild(cloneElement);
                 // console.log("oldChild", singlePage.appendChild(cloneElement));
+
+                //第一次進入先帶入singleDeviceActionList
+                const chooseDeviceText = singlePage.textContent;
+                const chooseContentArray = chooseDeviceText.split(' ');
+                reducer({
+                    action: window.actionList.deviceAction.updateSingleDeviceActionList, 
+                    payload: chooseContentArray
+                })
+                // console.log("global singleDeviceActionList",getGlobalVariable("singleDeviceActionList"));
             }
             else {
                 newChild = cloneElement;
                 // console.log("newChild", newChild);
+                //newchild 代替 oldchild(singlePage.querySelector('tr'))
                 singlePage.replaceChild(newChild, singlePage.querySelector('tr'));
+
+                //每次拿到換新的singleDevice就更新singleDeviceActionList
+                const chooseDeviceText = singlePage.textContent;
+                const chooseContentArray = chooseDeviceText.split(' ');
+                reducer({
+                    action: window.actionList.deviceAction.updateSingleDeviceActionList, 
+                    payload: chooseContentArray
+                })
+                // console.log("global singleDeviceActionList",getGlobalVariable("singleDeviceActionList"));
             }
             //點擊某台裝置之後再呈現三個按鈕
             $('#single-device-list').show();

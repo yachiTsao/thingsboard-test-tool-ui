@@ -23,6 +23,7 @@ function tableItemBuilder(device, index) {
     //判斷陣列內是否有行為
     const isSendData = findArrayItem(device.action, 'sendData');
     const isSubscribeRPC = findArrayItem(device.action, 'subscribeRPC');
+    // if(device.frequency === undefined)device.frequency = 60;
     return `<tr><td> ${device.name} </td><td> ${device.type} </td>
     <td><input name=actions id=subscribeRPC-${index} type=checkbox class=form-check-input ${isSubscribeRPC ? 'checked' : ''}> SubscribeRPC </input><br>
     <input name=actions id=sendData-${index} type=checkbox class=form-check-input ${isSendData ? 'checked' : ''}> SendData </input></td>
@@ -75,7 +76,9 @@ function updateTable(deviceList) {
             e.preventDefault();
             e.stopPropagation();
             // console.log(sendActionData);
-            updateActionDeviceList(deviceList);
+            // 每次都去抓新的資料，定義的範圍不會受到if限制
+            const deviceActionList = getGlobalVariable("deviceActionList");
+            if (deviceActionList) updateActionDeviceList(deviceActionList);
         });
         setGlobalVariable('setDeviceAction', true);
     }
