@@ -161,7 +161,7 @@ function buildAllDevicesTable(deviceList) {
         ArrayofId.push(deviceList[i].id);
     }
     tablePage.innerHTML = table;
-
+    console.log(table);
     changeAllDeviceAction(table, ArrayofId);
 
     buildSingleDeviceTable();

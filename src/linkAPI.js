@@ -113,7 +113,7 @@ function loadDeviceList() {
         type: "get",
         dataType: "json",
         success: function (info) {
-            console.log(info.devices);
+            // console.log(info.devices);
             // buildAllDevicesTable(info.desvices);
             reducer({
                 action: window.actionList.deviceAction.updateAllDeviceActionList, 
@@ -121,7 +121,6 @@ function loadDeviceList() {
             })
             buildAllDevicesTable(getGlobalVariable("allDeviceActionList"));
             console.log(getGlobalVariable("allDeviceActionList"));
-
         },
         error: function (data) {
             console.log("請求失敗");
